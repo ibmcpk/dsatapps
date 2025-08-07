@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT Vocabulary Flashcards</title>
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Inter for English and general text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Noto Nastaliq Urdu for authentic Urdu script -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for navigation icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* CSS Variables for a clean, consistent color palette */
+        :root {
+            --bg-color: #f0f4f8; /* A light, cool gray */
+            --card-front-bg: #e2f3f5; /* A soft teal */
+            --card-back-bg: #3d5a80; /* A deep, serious blue */
+            --text-color: #293241; /* Dark blue-gray for text */
+            --highlight-color: #ee6c4d; /* Vibrant coral for highlights */
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --toggle-bg: #ccc;
+            --toggle-bg-active: #4CAF50;
+        }
+
+        /* Base styling for the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* Main heading styling */
+        h1 {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-weight: 700;
+        }
+
+        /* Container for the flashcard to enable 3D perspective */
+        .flashcard-container {
+            width: 100%;
+            max-width: 600px;
+            perspective: 1000px;
+            /* Added a fixed height to prevent collapsing on flip */
+            height: 400px; 
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* The card itself, which will be flipped */
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease-in-out;
+            border-radius: 16px;
+            box-shadow: 0 8px 16px var(--shadow-color);
+        }
+
+        /* CSS class to trigger the flip animation */
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        
+        /* Loading state styling */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            background-color: var(--card-front-bg);
+            border-radius: 16px;
+        }
+
+        /* Base styling for both card faces */
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            color: var(--text-color);
+            /* Added overflow to prevent content from spilling */
+            overflow-y: auto;
+        }
+
+        /* Styling for the front of the card */
+        .card-face.front {
+            background-color: var(--card-front-bg);
+        }
+        
+        .card-face.front .word-pair {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+        
+        /* Styling for the Urdu section, with RTL directionality */
+        .urdu-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--text-color);
+            width: 100%;
+            direction: rtl; /* Crucial for proper Urdu display */
+            text-align: right;
+            padding-right: 1rem;
+            box-sizing: border-box;
+        }
+
+        .urdu-word {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            line-height: 1.5;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Specific styling for the Roman Urdu hint */
+        .roman-urdu-hint {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            color: var(--text-color);
+            font-weight: 400;
+            direction: ltr; /* Forces left-to-right alignment within the RTL container */
+            text-align: left;
+            width: 100%; /* Ensures it takes up full width for proper alignment */
+        }
+
+        .card-face.front .example {
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0 1rem;
+            color: var(--text-color);
+        }
+        
+        .card-face.front .example b {
+            color: var(--highlight-color);
+            font-weight: 700;
+        }
+
+        /* Styling for the back of the card */
+        .card-face.back {
+            transform: rotateY(180deg);
+            background-color: var(--card-back-bg);
+            color: #fff;
+        }
+
+        .card-face.back .meaning {
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            line-height: 1.6;
+            padding: 0 1rem;
+            max-height: 300px; /* Constrain height for long definitions */
+            overflow-y: auto; /* Enable scrolling for long content */
+        }
+
+        .card-face.back .meaning b {
+            color: var(--highlight-color);
+            font-weight: 700;
+        }
+
+        /* Navigation buttons and counter styling */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+
+        .nav-button {
+            background-color: var(--highlight-color);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px; 
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-button:hover {
+            background-color: #e55c3c;
+            transform: translateY(-2px);
+        }
+        
+        .nav-button i {
+            font-size: 1.2rem;
+        }
+
+        .card-counter {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 700;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        /* Toggle switch styling */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--toggle-bg);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--toggle-bg-active);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(16px);
+        }
+
+        .toggle-label {
+            color: var(--text-color);
+            font-size: 1rem;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SAT Vocabulary Flashcards</h1>
+
+    <div class="flashcard-container" id="flashcard-container">
+        <div class="card" id="current-card">
+            <div class="loading">
+                Loading vocabulary...
+            </div>
+        </div>
+    </div>
+    
+    <div class="toggle-container">
+        <label class="toggle-label">Show Urdu Translation</label>
+        <label class="switch">
+            <input type="checkbox" id="urdu-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="navigation">
+        <button id="prev-button" class="nav-button">
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        <span id="card-counter" class="card-counter"></span>
+        <button id="next-button" class="nav-button">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <script>
+        let vocabulary = [];
+        let currentCardIndex = 0;
+        let totalCards = 0;
+
+        const cardContainer = document.getElementById('current-card');
+        const flashcardWrapper = document.getElementById('flashcard-container');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const cardCounter = document.getElementById('card-counter');
+        const urduToggle = document.getElementById('urdu-toggle');
+
+        /**
+         * Fetches vocabulary data from the JSON file.
+         * @returns {Promise<Array>} A promise that resolves with the vocabulary array.
+         */
+        async function fetchVocabulary() {
+            try {
+                const response = await fetch('satvocab99');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Failed to fetch vocabulary data:', error);
+                // Display an error message to the user
+                cardContainer.innerHTML = '<div class="loading">Failed to load vocabulary. Kindly contact the team</div>';
+                return [];
+            }
+        }
+
+        /**
+         * Renders the current flashcard content.
+         */
+        function renderCard() {
+            if (totalCards === 0) {
+                return;
+            }
+            
+            const card = vocabulary[currentCardIndex];
+            
+            // Remove the loading indicator if it exists
+            const loadingIndicator = cardContainer.querySelector('.loading');
+            if (loadingIndicator) {
+                 loadingIndicator.remove();
+                 cardContainer.innerHTML = `
+                    <div class="card-face front"></div>
+                    <div class="card-face back"></div>
+                `;
+            }
+
+            const frontFace = cardContainer.querySelector('.card-face.front');
+            const backFace = cardContainer.querySelector('.card-face.back');
+
+            // Construct the Urdu section based on the toggle state
+            const urduSectionHTML = urduToggle.checked ? `
+                <div class="urdu-section">
+                    <div class="urdu-word">${card.urduWord}</div>
+                    <div class="roman-urdu-hint">${card.romanUrduHint}</div>
+                </div>
+            ` : '';
+
+            // Update the front of the card with English words, example, and the conditional Urdu section
+            frontFace.innerHTML = `
+                <div class="word-pair">${card.words.join(' & ')}</div>
+                <p class="example">${card.example}</p>
+                ${urduSectionHTML}
+            `;
+            
+            // Update the back of the card
+            backFace.innerHTML = `
+                <p class="meaning">${card.meaning}</p>
+            `;
+
+            // Update the card counter
+            cardCounter.textContent = `${currentCardIndex + 1} of ${totalCards}`;
+        }
+
+        /**
+         * Initializes the flashcard app after data is loaded.
+         */
+        function initializeApp() {
+            // Event listener to flip the card
+            flashcardWrapper.addEventListener('click', () => {
+                cardContainer.classList.toggle('is-flipped');
+            });
+
+            // Event listener for the previous button
+            prevButton.addEventListener('click', () => {
+                // Ensure the card is always on its front face when we navigate
+                cardContainer.classList.remove('is-flipped');
+                currentCardIndex = (currentCardIndex - 1 + totalCards) % totalCards;
+                renderCard();
+            });
+
+            // Event listener for the next button
+            nextButton.addEventListener('click', () => {
+                // Ensure the card is always on its front face when we navigate
+                cardContainer.classList.remove('is-flipped');
+                currentCardIndex = (currentCardIndex + 1) % totalCards;
+                renderCard();
+            });
+            
+            // Event listener for the Urdu toggle switch
+            urduToggle.addEventListener('change', () => {
+                // Rerender the card to show/hide the Urdu text
+                renderCard();
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Fetch the data and then initialize the app
+            vocabulary = await fetchVocabulary();
+            totalCards = vocabulary.length;
+            renderCard();
+            initializeApp();
+        });
+    </script>
+</body>
+</html>

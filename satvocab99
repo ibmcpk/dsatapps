@@ -1,0 +1,695 @@
+[
+    {
+        "words": ["Admonish", "Reproach"],
+        "meaning": "Both express disapproval. **Admonish** is a gentle warning, while **reproach** is a more severe expression of disappointment or blame.",
+        "example": "The teacher had to <b>admonish</b> the student, but she later delivered a harsh <b>reproach</b> to the entire class for their poor test scores.",
+        "urduWord": "سرزنش کرنا، ڈانٹنا",
+        "romanUrduHint": "Sar-zanish karna, Daantna"
+    },
+    {
+        "words": ["Affable", "Congenial"],
+        "meaning": "Both describe pleasant personalities. **Affable** is easy to talk to, while **congenial** describes a person whose temperament is well-suited to another's.",
+        "example": "The new neighbor was an <b>affable</b> man, and his <b>congenial</b> nature made him a perfect fit for the community.",
+        "urduWord": "ملنسار، خوش مزاج",
+        "romanUrduHint": "Milansaar, Khush mizaaj"
+    },
+    {
+        "words": ["Ambiguous", "Equivocal"],
+        "meaning": "Both mean unclear. An **ambiguous** statement is open to multiple interpretations, while an **equivocal** statement is deliberately vague to mislead.",
+        "example": "His <b>ambiguous</b> answer could have meant either yes or no, but the politician's <b>equivocal</b> response was clearly an attempt to avoid a commitment.",
+        "urduWord": "مبہم، گول مول",
+        "romanUrduHint": "Mubham, Gol mol"
+    },
+    {
+        "words": ["Apathy", "Indifference"],
+        "meaning": "Both relate to a lack of feeling. **Apathy** is a profound state of emotional disinterest, whereas **indifference** is a simple lack of concern.",
+        "example": "The student's <b>apathy</b> toward his grades was a source of concern, while his <b>indifference</b> to the decor was a sign he was focused only on the food.",
+        "urduWord": "بے حسی، بے پروائی",
+        "romanUrduHint": "Be-hisi, Be-parwahi"
+    },
+    {
+        "words": ["Austerity", "Sparsity"],
+        "meaning": "Both imply a lack of something. **Austerity** is a severe and simple style, often self-imposed. **Sparsity** refers to the state of being scarce or thinly distributed.",
+        "example": "The monks' <b>austerity</b> was evident in their bare quarters, but the <b>sparsity</b> of trees was a natural feature of the landscape.",
+        "urduWord": "سادگی، کمی",
+        "romanUrduHint": "Saadgi, Kami"
+    },
+    {
+        "words": ["Belie", "Contradict"],
+        "meaning": "To **belie** is to fail to give a true impression of something. To **contradict** is to directly state the opposite.",
+        "example": "His calm demeanor <b>belied</b> the stress he felt, and his next statement directly <b>contradicted</b> his previous one.",
+        "urduWord": "جھٹلانا، تضاد ہونا",
+        "romanUrduHint": "Jhutlana, Tazaad hona"
+    },
+    {
+        "words": ["Bolster", "Substantiate"],
+        "meaning": "Both mean to support. To **bolster** is to prop up or strengthen, and to **substantiate** is to provide evidence to prove a claim.",
+        "example": "The new data will <b>bolster</b> the scientist's theory, and the eyewitness accounts will <b>substantiate</b> the defendant's alibi.",
+        "urduWord": "سہارا دینا، ثابت کرنا",
+        "romanUrduHint": "Sahara dena, Sabit karna"
+    },
+    {
+        "words": ["Candid", "Forthright"],
+        "meaning": "Both mean honest. **Candid** suggests honesty that is open and sincere, while **forthright** implies directness and a lack of hesitation.",
+        "example": "The journalist was known for his <b>candid</b> interviews, and the mayor's <b>forthright</b> refusal left no room for doubt.",
+        "urduWord": "سچا، صاف گو",
+        "romanUrduHint": "Sacha, Saaf go"
+    },
+    {
+        "words": ["Capricious", "Fickle"],
+        "meaning": "Both describe unpredictable behavior. **Capricious** suggests sudden, unpredictable changes in mood, while **fickle** describes someone who is inconstant.",
+        "example": "The weather was <b>capricious</b>, changing from sunny to stormy, and the star's <b>fickle</b> fans cheered for one team one day and another the next.",
+        "urduWord": "متقلب المزاج، بے وفا",
+        "romanUrduHint": "Mutaghayar-ul-mizaaj, Bewafa"
+    },
+    {
+        "words": ["Concede", "Acquiesce"],
+        "meaning": "Both involve giving in. To **concede** is to admit a point is true after first denying it, and to **acquiesce** is to accept something reluctantly.",
+        "example": "The politician had to <b>concede</b> that his opponent had won, while the employees had to <b>acquiesce</b> to the new company policy.",
+        "urduWord": "تسلیم کرنا، رضا مند ہونا",
+        "romanUrduHint": "Tasleem karna, Razamand hona"
+    },
+    {
+        "words": ["Conformity", "Compliance"],
+        "meaning": "**Conformity** is the act of behaving in a socially acceptable way, and **compliance** is the act of obeying an order or rule.",
+        "example": "The student's desire for <b>conformity</b> led him to wear the same clothes as his peers, but his <b>compliance</b> with the school's dress code was mandatory.",
+        "urduWord": "مطابقت، اطاعت",
+        "romanUrduHint": "Mutabqat, Itaat"
+    },
+    {
+        "words": ["Confound", "Perplex"],
+        "meaning": "To **confound** is to cause surprise or confusion, and to **perplex** is to make someone feel baffled or puzzled.",
+        "example": "The unexpected results of the experiment <b>confounded</b> the researchers, and the riddle's complexity <b>perplexed</b> the students.",
+        "urduWord": "حیران کرنا، الجھا دینا",
+        "romanUrduHint": "Hairan karna, Uljha dena"
+    },
+    {
+        "words": ["Copious", "Profuse"],
+        "meaning": "Both mean abundant. **Copious** implies a large amount or quantity, and **profuse** often suggests a generous or excessive amount.",
+        "example": "The reporter took <b>copious</b> notes during the conference, and the actor received a <b>profuse</b> amount of praise for his performance.",
+        "urduWord": "بہت زیادہ، کثیر",
+        "romanUrduHint": "Bahut zyada, Kaseer"
+    },
+    {
+        "words": ["Corroborate", "Substantiate"],
+        "meaning": "To **corroborate** is to confirm a statement, and to **substantiate** is to provide evidence to prove the truth of something.",
+        "example": "The second witness's story helped to <b>corroborate</b> the first witness's testimony, and the new findings were used to <b>substantiate</b> the theory.",
+        "urduWord": "تصدیق کرنا، ثبوت دینا",
+        "romanUrduHint": "Tasdeeq karna, Saboot dena"
+    },
+    {
+        "words": ["Credulous", "Gullible"],
+        "meaning": "Both describe someone who is easily fooled. **Credulous** is a willingness to believe anything, and **gullible** implies a lack of skepticism.",
+        "example": "The <b>credulous</b> child believed every word of the fairy tale, but the <b>gullible</b> man fell for the classic scam.",
+        "urduWord": "سادہ لوح، بھولا بھالا",
+        "romanUrduHint": "Saada loh, Bhola bhala"
+    },
+    {
+        "words": ["Cynical", "Skeptical"],
+        "meaning": "Both are attitudes of doubt. **Cynical** is a belief that people are motivated by self-interest, and **skeptical** is having doubts about a particular thing.",
+        "example": "The <b>cynical</b> detective believed every suspect had a hidden motive, while the <b>skeptical</b> scientist demanded more proof.",
+        "urduWord": "بد گمان، شکوک و شبہات رکھنے والا",
+        "romanUrduHint": "Bad gumaan, Shakook-o-shubhaat rakhne wala"
+    },
+    {
+        "words": ["Daunting", "Intimidating"],
+        "meaning": "Both make one feel apprehensive. **Daunting** describes a task that seems difficult, and **intimidating** describes a person or situation that makes one feel timid.",
+        "example": "The mountain climb was a <b>daunting</b> challenge, but the strict professor's reputation was what made him truly <b>intimidating</b>.",
+        "urduWord": "مشکل، ڈرانے والا",
+        "romanUrduHint": "Mushkil, Darane wala"
+    },
+    {
+        "words": ["Debunk", "Discredit"],
+        "meaning": "To **debunk** is to expose a claim as being false, and to **discredit** is to harm the good reputation of someone or something.",
+        "example": "The new evidence served to <b>debunk</b> the urban legend, and the scandal was enough to <b>discredit</b> the politician.",
+        "urduWord": "غلط ثابت کرنا، بدنام کرنا",
+        "romanUrduHint": "Ghalat sabit karna, Badnaam karna"
+    },
+    {
+        "words": ["Decorum", "Propriety"],
+        "meaning": "Both relate to proper behavior. **Decorum** is behavior that is well-behaved and dignified, and **propriety** is the state of conforming to accepted standards of behavior.",
+        "example": "The royal family always maintained their <b>decorum</b> in public, and the guest's behavior was a breach of social <b>propriety</b>.",
+        "urduWord": "شائستگی، تہذیب",
+        "romanUrduHint": "Shayastagi, Tahzeeb"
+    },
+    {
+        "words": ["Demagogue", "Populist"],
+        "meaning": "A **demagogue** appeals to prejudices, while a **populist** holds the belief that common people are being exploited.",
+        "example": "The <b>demagogue</b> used fear to sway the crowd, while the <b>populist</b> argued for policies that would benefit the working class.",
+        "urduWord": "اِشتہال انگیز، عوامی",
+        "romanUrduHint": "Ishteyaal angez, Awami"
+    },
+    {
+        "words": ["Depreciate", "Denigrate"],
+        "meaning": "To **depreciate** is to diminish in value over time, while to **denigrate** is to criticize unfairly.",
+        "example": "The value of the car will <b>depreciate</b> over time, and the rival company tried to <b>denigrate</b> the new product in their advertisements.",
+        "urduWord": "قدر کم ہونا، بدنام کرنا",
+        "romanUrduHint": "Qadar kam hona, Badnaam karna"
+    },
+    {
+        "words": ["Diligent", "Assiduous"],
+        "meaning": "Both mean to show great care. **Diligent** suggests careful and persistent effort, while **assiduous** implies continuous and devoted effort.",
+        "example": "The <b>diligent</b> student spent hours studying, and the <b>assiduous</b> researcher worked tirelessly on her project.",
+        "urduWord": "محنتی، مستعد",
+        "romanUrduHint": "Mehnati, Mustaid"
+    },
+    {
+        "words": ["Disparity", "Discrepancy"],
+        "meaning": "A **disparity** is a great difference, often between people who should be equal. A **discrepancy** is a lack of compatibility between two facts.",
+        "example": "There was a clear <b>disparity</b> in income between the two neighborhoods, and a <b>discrepancy</b> in the two reports suggested a mistake had been made.",
+        "urduWord": "فرق، تضاد",
+        "romanUrduHint": "Farq, Tazaad"
+    },
+    {
+        "words": ["Disseminate", "Promulgate"],
+        "meaning": "To **disseminate** is to spread information widely, while to **promulgate** is to promote or make widely known an idea or cause.",
+        "example": "The news station will <b>disseminate</b> the information, and the organization's goal was to <b>promulgate</b> its message of peace.",
+        "urduWord": "پھیلانا، شائع کرنا",
+        "romanUrduHint": "Phailana, Shay karna"
+    },
+    {
+        "words": ["Dogmatic", "Obdurate"],
+        "meaning": "A **dogmatic** person lays down principles as true. An **obdurate** person is stubbornly refusing to change one's opinion.",
+        "example": "The professor's views were <b>dogmatic</b>, while his <b>obdurate</b> student refused to accept any correction.",
+        "urduWord": "اصول پرست، ضدی",
+        "romanUrduHint": "Usool parast, Ziddi"
+    },
+    {
+        "words": ["Dubious", "Pernicious"],
+        "meaning": "**Dubious** means hesitating or doubting. **Pernicious** has a harmful effect, especially in a gradual way.",
+        "example": "The claim seemed <b>dubious</b> to the scientists, but the company's <b>pernicious</b> influence slowly spread throughout the industry.",
+        "urduWord": "شک و شبہ میں، نقصان دہ",
+        "romanUrduHint": "Shak-o-shubha mein, Nuqsan deh"
+    },
+    {
+        "words": ["Elicit", "Evoke"],
+        "meaning": "To **elicit** is to draw out a response from someone. To **evoke** is to bring or recall to the conscious mind.",
+        "example": "The reporter's question was an attempt to <b>elicit</b> a reaction, and the old photograph was enough to <b>evoke</b> a flood of memories.",
+        "urduWord": "حاصل کرنا، جگانا",
+        "romanUrduHint": "Hasil karna, Jagana"
+    },
+    {
+        "words": ["Eloquent", "Articulate"],
+        "meaning": "Both relate to speaking well. **Eloquent** means fluent or persuasive, while **articulate** means having the ability to speak fluently and coherently.",
+        "example": "The lawyer's <b>eloquent</b> closing statement convinced the jury, and the well-trained speaker was always very <b>articulate</b>.",
+        "urduWord": "فصیح و بلیغ، واضح",
+        "romanUrduHint": "Faseeh-o-baleeg, Wazeh"
+    },
+    {
+        "words": ["Embellish", "Exaggerate"],
+        "meaning": "To **embellish** is to make a story more interesting by adding details. To **exaggerate** is to represent something as being larger or worse than it is.",
+        "example": "The storyteller would often <b>embellish</b> his tales, and the fisherman was known to <b>exaggerate</b> the size of his catch.",
+        "urduWord": "سنوارنا، مبالغہ کرنا",
+        "romanUrduHint": "Sanwarna, Mubaligha karna"
+    },
+    {
+        "words": ["Empirical", "Pragmatic"],
+        "meaning": "**Empirical** is based on observation or experience. **Pragmatic** is based on practical rather than theoretical considerations.",
+        "example": "The scientist relied on <b>empirical</b> evidence to prove his theory, and the <b>pragmatic</b> approach to the problem was to use the simplest solution.",
+        "urduWord": "تجرباتی، عملی",
+        "romanUrduHint": "Tajribati, Amali"
+    },
+    {
+        "words": ["Enervate", "Enfeeble"],
+        "meaning": "Both mean to weaken. To **enervate** is to make someone feel drained of energy, and to **enfeeble** is to make someone weak.",
+        "example": "The long, hot day was enough to <b>enervate</b> the hikers, and the illness would <b>enfeeble</b> him for weeks.",
+        "urduWord": "کمزور کرنا، بے جان کرنا",
+        "romanUrduHint": "Kamzor karna, Be-jaan karna"
+    },
+    {
+        "words": ["Enigmatic", "Cryptic"],
+        "meaning": "Both mean mysterious. An **enigmatic** person is difficult to understand. A **cryptic** message has a mysterious meaning.",
+        "example": "The <b>enigmatic</b> figure appeared and disappeared just as quickly, and the coded letter contained only a <b>cryptic</b> message.",
+        "urduWord": "پراسرار، معماتی",
+        "romanUrduHint": "Pura-asrar, Muammati"
+    },
+    {
+        "words": ["Epitome", "Paragon"],
+        "meaning": "An **epitome** is a perfect example of a quality or type. A **paragon** is a person regarded as a perfect example.",
+        "example": "The building was the <b>epitome</b> of modern architecture, and the kind woman was a <b>paragon</b> of virtue.",
+        "urduWord": "نمونہ، مثال",
+        "romanUrduHint": "Namoona, Misaal"
+    },
+    {
+        "words": ["Exonerate", "Acquit"],
+        "meaning": "To **exonerate** is to officially absolve someone from blame. To **acquit** is to free someone from a criminal charge by a verdict of not guilty.",
+        "example": "The DNA evidence was enough to <b>exonerate</b> the innocent man, while the jury's verdict was to <b>acquit</b> the defendant.",
+        "urduWord": "بری الذمہ کرنا، رہا کرنا",
+        "romanUrduHint": "Bari-ul-zimma karna, Reha karna"
+    },
+    {
+        "words": ["Fabricate", "Forge"],
+        "meaning": "To **fabricate** is to invent something, typically with deceitful intent. To **forge** is to produce a fraudulent copy.",
+        "example": "The witness had to <b>fabricate</b> his story to avoid trouble, and the criminal was caught trying to <b>forge</b> a signature on a check.",
+        "urduWord": "گھڑنا، جعل سازی کرنا",
+        "romanUrduHint": "Ghadhna, Jaalsaazi karna"
+    },
+    {
+        "words": ["Fathom", "Grasp"],
+        "meaning": "Both mean to understand. To **fathom** is to comprehend something difficult, and to **grasp** is to fully understand a concept.",
+        "example": "It was impossible for him to <b>fathom</b> the magnitude of the universe, but he was able to <b>grasp</b> the main ideas of the lesson.",
+        "urduWord": "سمجھنا، ادراک کرنا",
+        "romanUrduHint": "Samjhna, Idraak karna"
+    },
+    {
+        "words": ["Florid", "Ornate"],
+        "meaning": "Both mean highly decorated. **Florid** can describe speech that is excessively elaborate. **Ornate** describes something with intricate patterns.",
+        "example": "The politician's <b>florid</b> speech was full of flowery language, and the ancient palace was decorated with <b>ornate</b> gold carvings.",
+        "urduWord": "سُرخ و چمکدار، سجا ہوا",
+        "romanUrduHint": "Surkh-o-chamakdar, Saja hua"
+    },
+    {
+        "words": ["Frugal", "Thrifty"],
+        "meaning": "Both mean to be careful with money. **Frugal** implies simple living to avoid waste, and **thrifty** implies wise and careful use of money.",
+        "example": "The <b>frugal</b> couple lived a simple lifestyle to save for a house, and the <b>thrifty</b> shopper always looked for a good deal.",
+        "urduWord": "کفایت شعار، مقتصد",
+        "romanUrduHint": "Kifayat shaar, Muqtasid"
+    },
+    {
+        "words": ["Futile", "Vain"],
+        "meaning": "Both mean pointless. A **futile** action is incapable of producing a useful result. A **vain** attempt is one that has no success.",
+        "example": "The attempt to stop the storm was a <b>futile</b> effort, and the search for the missing item was <b>vain</b> because it had already been found.",
+        "urduWord": "بے فائدہ، لا حاصل",
+        "romanUrduHint": "Be-faida, La-hasil"
+    },
+    {
+        "words": ["Hypocrisy", "Duplicity"],
+        "meaning": "**Hypocrisy** is claiming to have moral standards to which one's own behavior does not conform. **Duplicity** is deceitfulness.",
+        "example": "The public saw the politician's <b>hypocrisy</b> when he spoke out against a law he secretly supported, and the criminal's <b>duplicity</b> was exposed.",
+        "urduWord": "ریاکاری، مکاری",
+        "romanUrduHint": "Riyakari, Makkari"
+    },
+    {
+        "words": ["Impetuous", "Impulsive"],
+        "meaning": "Both describe doing things without thought. **Impetuous** suggests acting on a sudden desire, and **impulsive** is a more general tendency to act on a whim.",
+        "example": "The <b>impetuous</b> decision to quit his job cost him his career, but his <b>impulsive</b> decision to buy flowers for his wife was a sweet gesture.",
+        "urduWord": "بے دھڑک، جذباتی",
+        "romanUrduHint": "Be-dharak, Jazbati"
+    },
+    {
+        "words": ["Incongruous", "Incompatible"],
+        "meaning": "**Incongruous** means not in harmony or keeping with the surroundings. **Incompatible** means unable to exist together in harmony.",
+        "example": "The clown's bright red suit seemed <b>incongruous</b> at the funeral, and the two friends realized they were <b>incompatible</b> when they couldn't agree on anything.",
+        "urduWord": "نامناسب، غیر ہم آہنگ",
+        "romanUrduHint": "Na-munasib, Ghair ham-ahang"
+    },
+    {
+        "words": ["Incredulous", "Skeptical"],
+        "meaning": "**Incredulous** is a state of disbelief. **Skeptical** is a state of doubt.",
+        "example": "The witness's story was so unbelievable that the jury was <b>incredulous</b>, but the detectives remained <b>skeptical</b> of all the evidence.",
+        "urduWord": "ناقابل یقین، شکی",
+        "romanUrduHint": "Naqaabil-e-yaqeen, Shakki"
+    },
+    {
+        "words": ["Intractable", "Obstinate"],
+        "meaning": "Both describe stubbornness. **Intractable** means difficult to manage or govern. **Obstinate** means stubbornly refusing to change one's opinion.",
+        "example": "The new law was designed to solve the <b>intractable</b> problem of poverty, but the <b>obstinate</b> child refused to eat his vegetables.",
+        "urduWord": "ضدی، ہٹ دھرم",
+        "romanUrduHint": "Ziddi, Hat-dharm"
+    },
+    {
+        "words": ["Laconic", "Terse"],
+        "meaning": "Both mean using few words. A **laconic** person uses very few words. A **terse** statement is brief and to the point.",
+        "example": "The cowboy was <b>laconic</b>, speaking only when necessary, while his <b>terse</b> reply left no room for further discussion.",
+        "urduWord": "کم گو، مختصر",
+        "romanUrduHint": "Kam go, Mukhtasar"
+    },
+    {
+        "words": ["Mitigate", "Alleviate"],
+        "meaning": "To **mitigate** is to make something less severe. To **alleviate** is to make suffering less severe.",
+        "example": "The new policy was designed to <b>mitigate</b> the effects of the drought, but the medicine was only able to <b>alleviate</b> the patient's pain.",
+        "urduWord": "ہلکا کرنا، کم کرنا",
+        "romanUrduHint": "Halka karna, Kam karna"
+    },
+    {
+        "words": ["Obfuscate", "Equivocate"],
+        "meaning": "To **obfuscate** is to deliberately make something difficult to understand. To **equivocate** is to use ambiguous language to conceal the truth.",
+        "example": "The lawyer tried to <b>obfuscate</b> the facts of the case, and the politician was criticized for <b>equivocating</b> on the issue.",
+        "urduWord": "الجھا دینا، بات کو گھمانا",
+        "romanUrduHint": "Uljha dena, Baat ko ghumana"
+    },
+    {
+        "words": ["Ostracize", "Shun"],
+        "meaning": "To **ostracize** is to exclude someone from a society or group. To **shun** is to persistently avoid, ignore, or reject someone.",
+        "example": "The community decided to <b>ostracize</b> the family, and the rebellious teenager decided to <b>shun</b> his parents.",
+        "urduWord": "برادری سے خارج کرنا، نظر انداز کرنا",
+        "romanUrduHint": "Biradri se kharij karna, Nazar andaz karna"
+    },
+    {
+        "words": ["Paucity", "Dearth"],
+        "meaning": "Both mean a lack of something. **Paucity** is an insufficient quantity. **Dearth** is a scarcity or lack of something.",
+        "example": "There was a <b>paucity</b> of evidence to support the claim, and a <b>dearth</b> of qualified candidates for the job.",
+        "urduWord": "کمی، قلت",
+        "romanUrduHint": "Kami, Qillat"
+    },
+    {
+        "words": ["Pedantic", "Didactic"],
+        "meaning": "A **pedantic** person is excessively concerned with minor details. A **didactic** person intends to teach a moral lesson.",
+        "example": "The professor's <b>pedantic</b> lecture was full of pointless details, while the novel was a <b>didactic</b> tale.",
+        "urduWord": "علمی فخر، نصیحت آموز",
+        "romanUrduHint": "Ilmi fakhr, Nasihat amooz"
+    },
+    {
+        "words": ["Penitent", "Contrite"],
+        "meaning": "Both mean feeling sorrow and regret. **Penitent** is feeling sorrow for having done wrong. **Contrite** is expressing remorse for a sin.",
+        "example": "The <b>penitent</b> sinner begged for forgiveness, and the <b>contrite</b> child apologized to her mother.",
+        "urduWord": "پشیمان، شرمندہ",
+        "romanUrduHint": "Pashiman, Sharminda"
+    },
+    {
+        "words": ["Placate", "Mollify"],
+        "meaning": "To **placate** is to make someone less angry or hostile. To **mollify** is to appease the anger or anxiety of someone.",
+        "example": "The manager tried to <b>placate</b> the angry customer with a refund, and the mother tried to <b>mollify</b> her crying child.",
+        "urduWord": "خوش کرنا، تسلی دینا",
+        "romanUrduHint": "Khush karna, Tasalli dena"
+    },
+    {
+        "words": ["Pragmatic", "Utilitarian"],
+        "meaning": "**Pragmatic** is a way of dealing with things sensibly and realistically. **Utilitarian** is designed to be useful or practical rather than attractive.",
+        "example": "The <b>pragmatic</b> approach to the problem was to use the simplest solution, and the chair's <b>utilitarian</b> design meant it was functional but not stylish.",
+        "urduWord": "عملی، مفید",
+        "romanUrduHint": "Amali, Mufeed"
+    },
+    {
+        "words": ["Prodigal", "Profligate"],
+        "meaning": "A **prodigal** person spends money freely and recklessly. A **profligate** person is a wasteful and immoral one.",
+        "example": "The <b>prodigal</b> son wasted his inheritance on a lavish lifestyle, and the politician was known for his <b>profligate</b> spending.",
+        "urduWord": "فضول خرچ، عیاش",
+        "romanUrduHint": "Fazool kharch, Ayash"
+    },
+    {
+        "words": ["Quagmire", "Morass"],
+        "meaning": "Both describe a difficult situation. A **quagmire** is a soft, boggy area of land. A **morass** is a complicated or confused situation.",
+        "example": "The army was stuck in a <b>quagmire</b> of mud, and the company found itself in a legal <b>morass</b> after the merger failed.",
+        "urduWord": "دلدل، پیچیدہ صورتحال",
+        "romanUrduHint": "Daldal, Pechida surat-e-haal"
+    },
+    {
+        "words": ["Rancor", "Acrimony"],
+        "meaning": "Both describe hostility. **Rancor** is a feeling of deep-seated ill will. **Acrimony** is bitterness or ill feeling.",
+        "example": "The old rivals held a deep <b>rancor</b> toward each other, and their public arguments were full of <b>acrimony</b>.",
+        "urduWord": "دشمنی، تلخی",
+        "romanUrduHint": "Dushmani, Talkhi"
+    },
+    {
+        "words": ["Relegate", "Demote"],
+        "meaning": "To **relegate** is to consign to an inferior position. To **demote** is to give someone a lower rank or position.",
+        "example": "The team was <b>relegated</b> to a lower league after a losing season, and the employee was <b>demoted</b> for poor performance.",
+        "urduWord": "پست کرنا، عہدہ کم کرنا",
+        "romanUrduHint": "Past karna, Ohda kam karna"
+    },
+    {
+        "words": ["Reticent", "Taciturn"],
+        "meaning": "Both describe someone who doesn't talk much. A **reticent** person is reserved and reluctant to talk. A **taciturn** person says very little.",
+        "example": "The witness was <b>reticent</b> about the details, and the <b>taciturn</b> man sat silently in the corner.",
+        "urduWord": "کم گو، خاموش",
+        "romanUrduHint": "Kam go, Khamosh"
+    },
+    {
+        "words": ["Subjugate", "Subdue"],
+        "meaning": "To **subjugate** is to bring under control, especially by conquest. To **subdue** is to overcome or quieten.",
+        "example": "The empire sought to <b>subjugate</b> the neighboring countries, and the police officer was able to <b>subdue</b> the aggressive suspect.",
+        "urduWord": "مطیع کرنا، زیر کرنا",
+        "romanUrduHint": "Mutee karna, Zer karna"
+    },
+    {
+        "words": ["Surreptitious", "Furtive"],
+        "meaning": "Both mean done secretly. **Surreptitious** is done to avoid being noticed. **Furtive** is suggestive of guilty nervousness.",
+        "example": "The spies exchanged a <b>surreptitious</b> glance, and the thief cast a <b>furtive</b> look over his shoulder.",
+        "urduWord": "خفیہ، چور نظر سے",
+        "romanUrduHint": "Khuifya, Chor nazar se"
+    },
+    {
+        "words": ["Tenacity", "Assiduity"],
+        "meaning": "**Tenacity** is the quality of being determined to achieve something. **Assiduity** is persistent and careful attention.",
+        "example": "The athlete's <b>tenacity</b> allowed her to finish the marathon, and the researcher's <b>assiduity</b> led to a major discovery.",
+        "urduWord": "لگن، محنت",
+        "romanUrduHint": "Lagan, Mehnat"
+    },
+    {
+        "words": ["Transient", "Ephemeral"],
+        "meaning": "**Transient** is lasting only for a short time. **Ephemeral** is lasting for a very short time.",
+        "example": "The <b>transient</b> feeling of happiness faded as it came, and the flower's <b>ephemeral</b> beauty lasted only a single day.",
+        "urduWord": "عارضی، فانی",
+        "romanUrduHint": "Aarzi, Faani"
+    },
+    {
+        "words": ["Trivial", "Trite"],
+        "meaning": "**Trivial** means of little value or importance. **Trite** means overused and consequently of little import.",
+        "example": "The argument was over a <b>trivial</b> matter, and the speaker's message was filled with <b>trite</b> phrases.",
+        "urduWord": "معمولی، معمولی",
+        "romanUrduHint": "Mamooli, Mamooli"
+    },
+    {
+        "words": ["Turbulence", "Upheaval"],
+        "meaning": "**Turbulence** is a state of conflict or confusion. **Upheaval** is a violent or sudden change or disruption.",
+        "example": "The country was going through political <b>turbulence</b>, and the revolution caused a sudden <b>upheaval</b> in society.",
+        "urduWord": "اضطراب، ہلچل",
+        "romanUrduHint": "Iztirab, Halchal"
+    },
+    {
+        "words": ["Vacillate", "Waver"],
+        "meaning": "To **vacillate** is to alternate between different opinions. To **waver** is to be undecided.",
+        "example": "The committee continued to <b>vacillate</b> on the decision, while his confidence began to <b>waver</b> as the deadline approached.",
+        "urduWord": "ہچکچانا، ڈگمگانا",
+        "romanUrduHint": "Hichkichana, Dagmagana"
+    },
+    {
+        "words": ["Venerable", "Reverent"],
+        "meaning": "A **venerable** person is accorded respect due to age or wisdom. A **reverent** person shows deep and solemn respect.",
+        "example": "The <b>venerable</b> professor had taught for over 50 years, and the students listened with a <b>reverent</b> silence.",
+        "urduWord": "قابلِ احترام، تعظیم کرنے والا",
+        "romanUrduHint": "Qabil-e-ehtiram, Tazim karne wala"
+    },
+    {
+        "words": ["Veracity", "Probity"],
+        "meaning": "**Veracity** is habitual truthfulness. **Probity** is the quality of having strong moral principles, honesty, and decency.",
+        "example": "The judge questioned the <b>veracity</b> of the testimony, and the councilor's <b>probity</b> was never in question.",
+        "urduWord": "سچائی، دیانت داری",
+        "romanUrduHint": "Sachai, Diyant daari"
+    },
+    {
+        "words": ["Vilify", "Denigrate"],
+        "meaning": "To **vilify** is to speak about someone in an abusively disparaging manner. To **denigrate** is to criticize unfairly.",
+        "example": "The tabloids tried to <b>vilify</b> the actress, and the rival company tried to <b>denigrate</b> the new product.",
+        "urduWord": "بدنام کرنا، برائی کرنا",
+        "romanUrduHint": "Badnaam karna, Burai karna"
+    },
+    {
+        "words": ["Zealot", "Fanatic"],
+        "meaning": "Both describe people with strong beliefs. A **zealot** is uncompromising in their ideals. A **fanatic** has excessive, single-minded enthusiasm.",
+        "example": "The political <b>zealot</b> refused to listen to opposing views, and the sports <b>fanatic</b> would travel all over the country.",
+        "urduWord": "جوشیلہ، کٹر",
+        "romanUrduHint": "Josheela, Katar"
+    },
+    {
+        "words": ["Abate", "Escalate"],
+        "meaning": "To **abate** is to become less intense or widespread, while to **escalate** is to increase rapidly.",
+        "example": "The heavy rain began to <b>abate</b>, but the winds began to <b>escalate</b>.",
+        "urduWord": "کم ہونا، بڑھنا",
+        "romanUrduHint": "Kam hona, Badhna"
+    },
+    {
+        "words": ["Aberration", "Conformity"],
+        "meaning": "An **aberration** is a departure from what is normal or expected. **Conformity** is the opposite, behaving in an expected way.",
+        "example": "His sudden outburst was an <b>aberration</b> from his usual behavior, a complete departure from his previous <b>conformity</b>.",
+        "urduWord": "انحراف، مطابقت",
+        "romanUrduHint": "Inhiraf, Mutabqat"
+    },
+    {
+        "words": ["Abrasive", "Affable"],
+        "meaning": "An **abrasive** tone is harsh and irritating, while an **affable** one is friendly and easy to talk to.",
+        "example": "His <b>abrasive</b> criticism was a stark contrast to her <b>affable</b> words of encouragement.",
+        "urduWord": "سخت، نرم خو",
+        "romanUrduHint": "Sakht, Narm kho"
+    },
+    {
+        "words": ["Accolade", "Denigrate"],
+        "meaning": "An **accolade** is an award or honor. To **denigrate** is to criticize unfairly, which is the opposite of giving an award.",
+        "example": "The artist received an **accolade** for her work, but also faced public attempts to **denigrate** her from critics.",
+        "urduWord": "اعزاز، بدنام کرنا",
+        "romanUrduHint": "Aizaaz, Badnaam karna"
+    },
+    {
+        "words": ["Acquiesce", "Persevere"],
+        "meaning": "To **acquiesce** is to accept something reluctantly. To **persevere** is to continue despite difficulty, which implies resisting.",
+        "example": "She had no choice but to **acquiesce** to the new demands, but she was determined to **persevere** and find a way to make it work.",
+        "urduWord": "رضامند ہونا، استقامت دکھانا",
+        "romanUrduHint": "Razamand hona, Istiqamat dikhana"
+    },
+    {
+        "words": ["Aesthetic", "Utilitarian"],
+        "meaning": "**Aesthetic** is concerned with beauty. **Utilitarian** is concerned with being useful or practical.",
+        "example": "The architect valued the **aesthetic** design of the building, but the client was more interested in its **utilitarian** features.",
+        "urduWord": "جمالیاتی، افادی",
+        "romanUrduHint": "Jamaliyati, Ifadi"
+    },
+    {
+        "words": ["Anachronism", "Veracity"],
+        "meaning": "An **anachronism** is a thing belonging to a period other than its own. **Veracity** is the quality of habitual truthfulness, a conceptual opposite to something that is \"untrue\" to its time period.",
+        "example": "The cell phone in the period drama was a glaring **anachronism**, which hurt the film's claim to historical <b>veracity</b>.",
+        "urduWord": "زمانے سے باہر کی چیز، سچائی",
+        "romanUrduHint": "Zamanay se bahar ki cheez, Sachai"
+    },
+    {
+        "words": ["Animosity", "Benevolent"],
+        "meaning": "**Animosity** is a strong hostility. **Benevolent** means well-meaning and kindly, which is a direct opposite.",
+        "example": "There was a long-standing **animosity** between the two rivals, but the **benevolent** leader sought a peaceful resolution.",
+        "urduWord": "عداوت، فیاض",
+        "romanUrduHint": "Adavat, Fayyaz"
+    },
+    {
+        "words": ["Arduous", "Placid"],
+        "meaning": "An **arduous** task requires strenuous effort. **Placid** is a state of calm and peace, a conceptual opposite.",
+        "example": "The climb was an **arduous** journey, but the **placid** lake at the summit provided a welcome reward.",
+        "urduWord": "مشقت طلب، پرسکون",
+        "romanUrduHint": "Mashaqqat talab, Pur-sukoon"
+    },
+    {
+        "words": ["Ascetic", "Profligate"],
+        "meaning": "An **ascetic** person practices severe self-discipline. A **profligate** person is wasteful and immoral, a clear opposite.",
+        "example": "The monk lived an **ascetic** life of prayer and fasting, while the **profligate** ruler spent his kingdom's wealth on lavish parties.",
+        "urduWord": "زاہد، عیاش",
+        "romanUrduHint": "Zahid, Ayash"
+    },
+    {
+        "words": ["Auspicious", "Pernicious"],
+        "meaning": "An **auspicious** start is favorable and conducive to success. **Pernicious** has a harmful effect, a direct opposite.",
+        "example": "The new year had an **auspicious** beginning, but the company's **pernicious** influence slowly spread throughout the industry.",
+        "urduWord": "مبارک، مضر",
+        "romanUrduHint": "Mubarak, Muzir"
+    },
+    {
+        "words": ["Benevolent", "Nefarious"],
+        "meaning": "A **benevolent** person is well-meaning and kindly. A **nefarious** person is wicked and criminal, a direct opposite.",
+        "example": "The **benevolent** king was loved by all, but the stories of the **nefarious** wizard terrified the children.",
+        "urduWord": "فیاض، بدکار",
+        "romanUrduHint": "Fayyaz, Badkaar"
+    },
+    {
+        "words": ["Cajole", "Intimidate"],
+        "meaning": "To **cajole** is to persuade with flattery. To **intimidate** is to make someone timid or afraid, which is the opposite of persuading them gently.",
+        "example": "He tried to **cajole** her into going to the party with compliments, but she felt he was trying to **intimidate** her into going.",
+        "urduWord": "پھسلانا، ڈرانا",
+        "romanUrduHint": "Phuslana, Darana"
+    },
+    {
+        "words": ["Calumny", "Extol"],
+        "meaning": "A **calumny** is a false and slanderous statement. To **extol** is to praise enthusiastically, a direct opposite.",
+        "example": "The politician's campaign was damaged by the **calumny** of his opponent, but his supporters were quick to **extol** his accomplishments.",
+        "urduWord": "بہتان، تعریف کرنا",
+        "romanUrduHint": "Buhtan, Tareef karna"
+    },
+    {
+        "words": ["Capitulate", "Persevere"],
+        "meaning": "To **capitulate** is to give in to a demand. To **persevere** is to continue despite difficulty, which is the opposite of giving in.",
+        "example": "The army was forced to **capitulate** after a long siege, but the general insisted his troops **persevere** to the very end.",
+        "urduWord": "ہتھیار ڈالنا، ڈٹے رہنا",
+        "romanUrduHint": "Hathyar dalna, Datey rehna"
+    },
+    {
+        "words": ["Circumlocution", "Terse"],
+        "meaning": "**Circumlocution** is the use of many words to say something. A **terse** statement is brief and to the point, a direct opposite.",
+        "example": "The politician's **circumlocution** made it difficult to understand his stance, while his opponent's **terse** reply left no room for doubt.",
+        "urduWord": "گول مول بات، مختصر",
+        "romanUrduHint": "Gol mol baat, Mukhtasar"
+    },
+    {
+        "words": ["Clandestine", "Forthright"],
+        "meaning": "A **clandestine** act is done secretly. A **forthright** person is direct and honest, the opposite of being secretive.",
+        "example": "The spies had a **clandestine** meeting in the park, but their leader was known for his **forthright** communication.",
+        "urduWord": "خفیہ، صاف گو",
+        "romanUrduHint": "Khufia, Saaf go"
+    },
+    {
+        "words": ["Complacent", "Assiduous"],
+        "meaning": "A **complacent** person is smugly satisfied. An **assiduous** person shows continuous and devoted effort, the opposite of being self-satisfied.",
+        "example": "The team became **complacent** after their early wins, but the **assiduous** coach worked tirelessly to prepare them for their rivals.",
+        "urduWord": "مطمئن، مستعد",
+        "romanUrduHint": "Mutmain, Mustaid"
+    },
+    {
+        "words": ["Curtail", "Bolster"],
+        "meaning": "To **curtail** is to reduce or shorten something. To **bolster** is to support or strengthen it, a conceptual opposite.",
+        "example": "The government decided to **curtail** public services, while at the same time trying to **bolster** the economy with new programs.",
+        "urduWord": "کم کرنا، سہارا دینا",
+        "romanUrduHint": "Kam karna, Sahara dena"
+    },
+    {
+        "words": ["Delineate", "Obfuscate"],
+        "meaning": "To **delineate** is to describe something precisely. To **obfuscate** is to make it difficult to understand, a direct opposite.",
+        "example": "The artist was asked to **delineate** the scene in as much detail as possible, but the fog began to **obfuscate** the view.",
+        "urduWord": "واضح کرنا، مبہم کرنا",
+        "romanUrduHint": "Wazeh karna, Mubham karna"
+    },
+    {
+        "words": ["Diffident", "Forthright"],
+        "meaning": "A **diffident** person is shy and modest. A **forthright** person is direct and honest, which requires confidence.",
+        "example": "The **diffident** student was too shy to raise his hand, but his friend was **forthright** and spoke her mind.",
+        "urduWord": "شرمیلا، بے باک",
+        "romanUrduHint": "Sharmeela, Be-baak"
+    },
+    {
+        "words": ["Egregious", "Laudable"],
+        "meaning": "An **egregious** error is outstandingly bad. A **laudable** act is deserving of praise, a direct opposite.",
+        "example": "The company's **egregious** safety violations were shocking, while the charity's **laudable** efforts were praised by the community.",
+        "urduWord": "بدترین، قابل تعریف",
+        "romanUrduHint": "Bad-tareen, Qabil-e-tareef"
+    },
+    {
+        "words": ["Encroach", "Adhere"],
+        "meaning": "To **encroach** is to intrude. To **adhere** is to stick fast to a surface or idea, a conceptual opposite of moving into another's space.",
+        "example": "The new construction was beginning to **encroach** on the public park, but the town's strict rules forced them to **adhere** to the original plans.",
+        "urduWord": "دخل اندازی کرنا، پابند رہنا",
+        "romanUrduHint": "Dakhal andazi karna, Pabund rehna"
+    },
+    {
+        "words": ["Erudite", "Unpretentious"],
+        "meaning": "An **erudite** person has great knowledge. An **unpretentious** person is not trying to impress others, which is a conceptual opposite of being a show of knowledge.",
+        "example": "The professor was an **erudite** scholar who had published several books, but she was always very **unpretentious** about her accomplishments.",
+        "urduWord": "عالم، سادہ",
+        "romanUrduHint": "Aalim, Saada"
+    },
+    {
+        "words": ["Extol", "Denigrate"],
+        "meaning": "To **extol** is to praise enthusiastically. To **denigrate** is to criticize unfairly, a direct opposite.",
+        "example": "The critics **extolled** the new film for its visuals, but the director was forced to **denigrate** the lead actor for his behavior.",
+        "urduWord": "تعریف کرنا، بدنام کرنا",
+        "romanUrduHint": "Tareef karna, Badnaam karna"
+    },
+    {
+        "words": ["Fastidious", "Listless"],
+        "meaning": "A **fastidious** person is very attentive to detail. A **listless** person lacks energy and enthusiasm, which would prevent them from being attentive.",
+        "example": "The chef was **fastidious** about his ingredients, while his **listless** assistant seemed to have no interest in the work.",
+        "urduWord": "نفاست پسند، سست",
+        "romanUrduHint": "Nafasat pasand, Sust"
+    },
+    {
+        "words": ["Foster", "Undermine"],
+        "meaning": "To **foster** is to encourage development. To **undermine** is to lessen the effectiveness of something, a direct opposite.",
+        "example": "The program was designed to **foster** a sense of community, but the new policies began to **undermine** its goals.",
+        "urduWord": "پرورش کرنا، کمزور کرنا",
+        "romanUrduHint": "Parwarish karna, Kamzor karna"
+    },
+    {
+        "words": ["Garrulous", "Reticent"],
+        "meaning": "A **garrulous** person is excessively talkative. A **reticent** person is reserved and reluctant to talk, a direct opposite.",
+        "example": "The **garrulous** passenger talked the entire flight, while his **reticent** seatmate listened in silence.",
+        "urduWord": "باتونی، کم گو",
+        "romanUrduHint": "Batooni, Kam go"
+    },
+    {
+        "words": ["Incendiary", "Conciliatory"],
+        "meaning": "An **incendiary** remark tends to stir up conflict. A **conciliatory** remark is intended to pacify, a direct opposite.",
+        "example": "The politician's **incendiary** remarks sparked a debate, but the diplomat's **conciliatory** words helped to ease tensions.",
+        "urduWord": "اشتعال انگیز، صلح جو",
+        "romanUrduHint": "Ishteyaal angez, Sulah jo"
+    },
+    {
+        "words": ["Jubilant", "Poignant"],
+        "meaning": "A **jubilant** person feels great happiness. A **poignant** feeling evokes a keen sense of sadness, a direct opposite.",
+        "example": "The team was **jubilant** after their victory, while the loss was a **poignant** moment for their opponents.",
+        "urduWord": "شادمان، دل کو چھونے والا",
+        "romanUrduHint": "Shaadman, Dil ko chhone wala"
+    }
+]
