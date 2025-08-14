@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATNav for Math</title>
+    <title>SATNav for Math (Canvas)</title>
     <style>
         :root {
             --bg-color: #1a1a2e;
             --primary-text-color: #e4e4e4;
             --secondary-text-color: #b1b1c1;
-        
+
             --algebra-color: #ff6384;
             --advanced-math-color: #36a2eb;
             --problem-solving-color: #ffcd56;
             --geometry-color: #4bc0c0;
+            --sub-topic-color: #888888;
         }
         
         body {
@@ -21,9 +22,9 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--primary-text-color);
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden; /* Prevent body scrolling */
         }
-        
+
         .top-bar {
             background-color: rgba(0, 0, 0, 0.4);
             color: var(--primary-text-color);
@@ -33,54 +34,25 @@
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 10;
+            z-index: 100;
         }
-        
-        #concept-map-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            cursor: grab;
-        }
-        
-        .concept-node {
-            position: absolute;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            text-align: center;
-        }
-        
-        .concept-node:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-        }
-        
-        #central-hub {
-            background-color: #6a6a8a;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.5rem;
-        }
-        
-        .algebra-color { background-color: var(--algebra-color); }
-        .advanced-math-color { background-color: var(--advanced-math-color); }
-        .problem-solving-color { background-color: var(--problem-solving-color); }
-        .geometry-color { background-color: var(--geometry-color); }
-        
+
         .branding {
             position: fixed;
             bottom: 1rem;
             right: 1rem;
             color: var(--secondary-text-color);
             font-size: 0.8rem;
+            z-index: 100;
         }
         
+        #concept-map-canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            cursor: grab;
+        }
+
         #info-panel {
             position: fixed;
             top: 0;
@@ -92,14 +64,14 @@
             box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
             transform: translateX(100%);
             transition: transform 0.3s ease-in-out;
-            z-index: 20;
+            z-index: 200;
             overflow-y: auto;
         }
-        
+
         .info-panel-visible {
             transform: translateX(0);
         }
-        
+
         #close-panel {
             position: absolute;
             top: 1rem;
@@ -110,7 +82,7 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
-        
+
         @media (max-width: 768px) {
             #info-panel {
                 width: 100vw;
@@ -120,15 +92,11 @@
 </head>
 <body>
     <header class="top-bar">
-        <h1>SATNav for Math</h1>
+        <h1>SATNav for Math Prototype</h1>
     </header>
 
-    <main id="concept-map-container">
-        <div id="central-hub" class="concept-node">SAT Math</div>
-        <div id="algebra" class="concept-node algebra-color">Algebra & Linear Equations</div>
-        <div id="advanced-math" class="concept-node advanced-math-color">Advanced Math</div>
-        <div id="problem-solving" class="concept-node problem-solving-color">Problem Solving & Data Analysis</div>
-        <div id="geometry" class="concept-node geometry-color">Geometry & Trigonometry</div>
+    <main>
+        <canvas id="concept-map-canvas"></canvas>
     </main>
 
     <div id="info-panel" class="info-panel-hidden">
@@ -143,27 +111,215 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        window.onload = function () {
+            const canvas = document.getElementById('concept-map-canvas');
+            const ctx = canvas.getContext('2d');
             const infoPanel = document.getElementById('info-panel');
             const closeButton = document.getElementById('close-panel');
-            const conceptNodes = document.querySelectorAll('.concept-node');
 
-            conceptNodes.forEach(node => {
-                node.addEventListener('click', () => {
-                    document.getElementById('panel-title').textContent = node.textContent;
-                    document.getElementById('panel-description').textContent = "This is a placeholder description for " + node.textContent + ".";
-                    infoPanel.classList.remove('info-panel-hidden');
-                    infoPanel.classList.add('info-panel-visible');
+            // Data model for the nodes, including sub-topics and parent references
+            const nodes = {
+                'sat-math-hub': { label: 'SAT Math', x: 0, y: 0, color: '#6a6a8a', radius: 100 },
+                'algebra': { label: 'Algebra & Linear Equations', x: -300, y: -250, color: 'var(--algebra-color)', radius: 80, details: "Focuses on creating and solving linear equations and inequalities, systems of equations, and interpreting linear function graphs.", examples: ["Example: Solve for x in 3(x+2)=15."] },
+                'advanced-math': { label: 'Advanced Math', x: 300, y: -250, color: 'var(--advanced-math-color)', radius: 80, details: "Covers quadratic equations, exponential functions, and polynomials.", examples: ["Example: Find the vertex of y = (x-3)^2 + 4."] },
+                'problem-solving': { label: 'Problem Solving & Data Analysis', x: -300, y: 250, color: 'var(--problem-solving-color)', radius: 80, details: "Tests your ability to apply math to real-world scenarios. Topics include rates, ratios, percentages, statistics, and probability.", examples: ["Example: A car travels 180 miles in 3 hours. How many miles in 5 hours?"] },
+                'geometry': { label: 'Geometry & Trigonometry', x: 300, y: 250, color: 'var(--geometry-color)', radius: 80, details: "Focuses on area, volume, coordinate geometry, and basic trigonometric relationships.", examples: ["Example: The area of a circle is 25π. What is its circumference?"] },
+
+                // Sub-categories
+                'linear-equations': { label: 'Linear Equations', parent: 'algebra', x: -450, y: -400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of linear equations." },
+                'systems': { label: 'Systems of Equations', parent: 'algebra', x: -150, y: -400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of solving systems." },
+                'quadratic-functions': { label: 'Quadratic Functions', parent: 'advanced-math', x: 150, y: -400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of quadratic functions." },
+                'statistics': { label: 'Statistics', parent: 'problem-solving', x: -450, y: 400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of statistical concepts like mean, median, mode." },
+                'right-triangles': { label: 'Right Triangles', parent: 'geometry', x: 450, y: 400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of right triangle trigonometry." }
+            };
+
+            let panX = 0;
+            let panY = 0;
+            let scale = 1.0;
+            let isPanning = false;
+            let startX, startY;
+
+            // --- Canvas Setup and Drawing ---
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                draw();
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.save();
+                
+                // Apply pan and zoom transformations
+                ctx.translate(canvas.width / 2 + panX, canvas.height / 2 + panY);
+                ctx.scale(scale, scale);
+
+                // Draw lines and connectors first
+                drawConnectors();
+                
+                // Draw all nodes on top
+                for (const key in nodes) {
+                    drawNode(nodes[key]);
+                }
+
+                ctx.restore();
+            }
+
+            function drawConnectors() {
+                for (const key in nodes) {
+                    const node = nodes[key];
+                    let parentNode = nodes['sat-math-hub'];
+                    if (node.parent) {
+                        parentNode = nodes[node.parent];
+                    }
+
+                    if (parentNode) {
+                         // Draw curved line from parent to current node
+                        ctx.beginPath();
+                        ctx.moveTo(parentNode.x, parentNode.y);
+                        // Use a quadratic curve for a smooth, organic look
+                        ctx.quadraticCurveTo(
+                            (parentNode.x + node.x) / 2, // Control point x
+                            (parentNode.y + node.y) / 2, // Control point y
+                            node.x, node.y
+                        );
+                        ctx.strokeStyle = '#555';
+                        ctx.lineWidth = 3;
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            function drawNode(node) {
+                // Draw the circle
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI);
+                ctx.fillStyle = node.color;
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 10;
+                ctx.fill();
+
+                // Draw the text
+                ctx.shadowBlur = 0; // Disable shadow for text
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                const maxTextWidth = node.radius * 1.8;
+                const lineHeight = 20;
+                const words = node.label.split(' ');
+                let line = '';
+                let lines = [];
+                
+                for(let n = 0; n < words.length; n++) {
+                    const testLine = line + words[n] + ' ';
+                    const metrics = ctx.measureText(testLine);
+                    if (metrics.width > maxTextWidth && n > 0) {
+                        lines.push(line);
+                        line = words[n] + ' ';
+                    } else {
+                        line = testLine;
+                    }
+                }
+                lines.push(line);
+                
+                ctx.font = '16px Segoe UI, Tahoma, Geneva, Verdana, sans-serif';
+                let startY = node.y - ((lines.length - 1) * lineHeight) / 2;
+                lines.forEach((l, i) => {
+                    ctx.fillText(l, node.x, startY + i * lineHeight);
                 });
+            }
+
+            // --- Event Listeners for Pan, Zoom, and Clicks ---
+
+            canvas.addEventListener('mousedown', (e) => {
+                isPanning = true;
+                startX = e.clientX - panX;
+                startY = e.clientY - panY;
+                canvas.style.cursor = 'grabbing';
             });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isPanning) return;
+                panX = e.clientX - startX;
+                panY = e.clientY - startY;
+                draw();
+            });
+
+            window.addEventListener('mouseup', () => {
+                isPanning = false;
+                canvas.style.cursor = 'grab';
+            });
+
+            canvas.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const zoomFactor = 0.1;
+                const delta = e.deltaY > 0 ? -1 : 1;
+                
+                const mouseX = e.clientX - canvas.width / 2 - panX;
+                const mouseY = e.clientY - canvas.height / 2 - panY;
+
+                const newScale = Math.max(0.3, Math.min(2.5, scale + delta * zoomFactor));
+                
+                panX -= mouseX * (newScale - scale) / newScale;
+                panY -= mouseY * (newScale - scale) / newScale;
+                scale = newScale;
+
+                draw();
+            });
+
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                const adjustedMouseX = (mouseX - canvas.width / 2 - panX) / scale;
+                const adjustedMouseY = (mouseY - canvas.height / 2 - panY) / scale;
+
+                for (const key in nodes) {
+                    const node = nodes[key];
+                    const distance = Math.sqrt(
+                        (adjustedMouseX - node.x) ** 2 +
+                        (adjustedMouseY - node.y) ** 2
+                    );
+
+                    if (distance < node.radius) {
+                        populateInfoPanel(node);
+                        break;
+                    }
+                }
+            });
+
+            function populateInfoPanel(node) {
+                const title = document.getElementById('panel-title');
+                const description = document.getElementById('panel-description');
+                const examples = document.getElementById('panel-examples');
+
+                title.textContent = node.label;
+                description.textContent = node.details || 'No description available for this topic.';
+                examples.innerHTML = '';
+                if (node.examples) {
+                    node.examples.forEach(example => {
+                        const p = document.createElement('p');
+                        p.textContent = example;
+                        examples.appendChild(p);
+                    });
+                }
+
+                infoPanel.classList.remove('info-panel-hidden');
+                infoPanel.classList.add('info-panel-visible');
+            }
 
             closeButton.addEventListener('click', () => {
                 infoPanel.classList.remove('info-panel-visible');
                 infoPanel.classList.add('info-panel-hidden');
             });
 
-            console.log("Pan and zoom functionality will be implemented here.");
-        });
+            draw();
+        };
     </script>
 </body>
 </html>
