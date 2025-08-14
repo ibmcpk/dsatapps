@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATNav for Math</title>
+    <title>SATNav for Math (Canvas)</title>
     <style>
         :root {
             --bg-color: #1a1a2e;
@@ -119,35 +119,51 @@
 
             // Data model for the nodes, including sub-topics and parent references
             const nodes = {
-                'sat-math-hub': { label: 'SAT Math', x: 0, y: 0, color: '#6a6a8a', radius: 100 },
-                'algebra': { label: 'Algebra & Linear Equations', x: -300, y: -250, color: 'var(--algebra-color)', radius: 80, details: "Focuses on creating and solving linear equations and inequalities, systems of equations, and interpreting linear function graphs.", examples: ["Example: Solve for x in 3(x+2)=15."] },
-                'advanced-math': { label: 'Advanced Math', x: 300, y: -250, color: 'var(--advanced-math-color)', radius: 80, details: "Covers quadratic equations, exponential functions, and polynomials.", examples: ["Example: Find the vertex of y = (x-3)^2 + 4."] },
-                'problem-solving': { label: 'Problem Solving & Data Analysis', x: -300, y: 250, color: 'var(--problem-solving-color)', radius: 80, details: "Tests your ability to apply math to real-world scenarios. Topics include rates, ratios, percentages, statistics, and probability.", examples: ["Example: A car travels 180 miles in 3 hours. How many miles in 5 hours?"] },
-                'geometry': { label: 'Geometry & Trigonometry', x: 300, y: 250, color: 'var(--geometry-color)', radius: 80, details: "Focuses on area, volume, coordinate geometry, and basic trigonometric relationships.", examples: ["Example: The area of a circle is 25π. What is its circumference?"] },
+                'sat-math-hub': { label: 'SAT Math', x: 0, y: 0, color: '#6a6a8a', radius: 100, originalRadius: 100, isVisible: true },
+                'algebra': { label: 'Algebra & Linear Equations', x: -300, y: -250, color: 'var(--algebra-color)', radius: 80, originalRadius: 80, isVisible: true, isExpanded: false, details: "Focuses on creating and solving linear equations and inequalities, systems of equations, and interpreting linear function graphs.", examples: ["Example: Solve for x in $3(x+2)=15$.", "Example: If $5x - 3 = 12$, what is the value of $10x$?"] },
+                'advanced-math': { label: 'Advanced Math', x: 300, y: -250, color: 'var(--advanced-math-color)', radius: 80, originalRadius: 80, isVisible: true, isExpanded: false, details: "Covers quadratic equations, exponential functions, and polynomials.", examples: ["Example: Find the vertex of $y = (x-3)^2 + 4$.", "Example: If $2^x = 16$, what is the value of $x$?"] },
+                'problem-solving': { label: 'Problem Solving & Data Analysis', x: -300, y: 250, color: 'var(--problem-solving-color)', radius: 80, originalRadius: 80, isVisible: true, isExpanded: false, details: "Tests your ability to apply math to real-world scenarios. Topics include rates, ratios, percentages, statistics, and probability.", examples: ["Example: A car travels 180 miles in 3 hours. How many miles in 5 hours?", "Example: The average of a set of 5 numbers is 10. If a new number, 16, is added to the set, what is the new average?"] },
+                'geometry': { label: 'Geometry & Trigonometry', x: 300, y: 250, color: 'var(--geometry-color)', radius: 80, originalRadius: 80, isVisible: true, isExpanded: false, details: "Focuses on area, volume, coordinate geometry, and basic trigonometric relationships.", examples: ["Example: The area of a circle is 25π. What is its circumference?", "Example: In a right triangle, one leg is 5 and the hypotenuse is 13. What is the length of the other leg?"] },
 
-                // Sub-categories
-                'linear-equations': { label: 'Linear Equations', parent: 'algebra', x: -450, y: -400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of linear equations." },
-                'systems': { label: 'Systems of Equations', parent: 'algebra', x: -150, y: -400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of solving systems." },
-                'quadratic-functions': { label: 'Quadratic Functions', parent: 'advanced-math', x: 150, y: -400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of quadratic functions." },
-                'statistics': { label: 'Statistics', parent: 'problem-solving', x: -450, y: 400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of statistical concepts like mean, median, mode." },
-                'right-triangles': { label: 'Right Triangles', parent: 'geometry', x: 450, y: 400, color: 'var(--sub-topic-color)', radius: 50, details: "Detailed explanation of right triangle trigonometry." }
+                // Sub-categories, initially hidden
+                'linear-equations': { label: 'Linear Equations', parent: 'algebra', x: -450, y: -400, color: 'var(--sub-topic-color)', radius: 50, originalRadius: 50, isVisible: false, details: "These problems require you to set up and solve linear equations and inequalities. Key skills include isolating variables and simplifying expressions.", examples: ["Example: The sum of three consecutive integers is 36. What is the smallest integer?", "Example: Solve for $x$ in the inequality $4x + 7 < 15$."] },
+                'systems': { label: 'Systems of Equations', parent: 'algebra', x: -150, y: -400, color: 'var(--sub-topic-color)', radius: 50, originalRadius: 50, isVisible: false, details: "This topic focuses on finding a single solution that satisfies two or more linear equations. Common methods include substitution and elimination.", examples: ["Example: Solve the system of equations: $x + y = 7$ and $2x - y = 5$.", "Example: A vendor sells hot dogs for \$2 each and sodas for \$1.50 each. If a customer buys 10 items for a total of \$18, how many hot dogs did they buy?"] },
+                'quadratic-functions': { label: 'Quadratic Functions', parent: 'advanced-math', x: 150, y: -400, color: 'var(--sub-topic-color)', radius: 50, originalRadius: 50, isVisible: false, details: "These problems involve parabolas and their properties, including finding roots, vertex, and the axis of symmetry. The quadratic formula is often useful here.", examples: ["Example: What is the sum of the roots of the quadratic equation $2x^2 + 8x - 10 = 0$?", "Example: The graph of $y = (x+2)^2 - 3$ has its vertex at what coordinates?"] },
+                'exponential-functions': { label: 'Exponential Functions', parent: 'advanced-math', x: 450, y: -400, color: 'var(--sub-topic-color)', radius: 50, originalRadius: 50, isVisible: false, details: "Focuses on growth and decay models. Key skills include understanding half-life and compound interest.", examples: ["Example: A population of bacteria doubles every hour. If the initial population is 50, what is the population after 4 hours?", "Example: The value of a car depreciates by 15% each year. If the car was bought for \$20,000, what is its value after 2 years?"] },
+                'statistics': { label: 'Statistics', parent: 'problem-solving', x: -450, y: 400, color: 'var(--sub-topic-color)', radius: 50, originalRadius: 50, isVisible: false, details: "This section tests your knowledge of mean, median, mode, and standard deviation. Problems often involve interpreting data from charts and tables.", examples: ["Example: The ages of 5 students are 15, 16, 17, 18, and 19. What is the median age?", "Example: A school conducted a survey on 100 students' favorite subjects. If 30 students chose math, what is the probability that a randomly selected student chose math?"] },
+                'probability': { label: 'Probability', parent: 'problem-solving', x: -150, y: 400, color: 'var(--sub-topic-color)', radius: 50, originalRadius: 50, isVisible: false, details: "Problems in this area deal with the likelihood of events occurring. Understanding independent and dependent events is crucial.", examples: ["Example: A fair coin is flipped three times. What is the probability of getting exactly two heads?", "Example: A bag contains 3 red balls and 5 blue balls. If you draw two balls without replacement, what is the probability that both are blue?"] },
+                'right-triangles': { label: 'Right Triangles', parent: 'geometry', x: 450, y: 400, color: 'var(--sub-topic-color)', radius: 50, originalRadius: 50, isVisible: false, details: "This topic includes the Pythagorean theorem and basic trigonometry (SOH-CAH-TOA). Many problems involve finding missing side lengths or angle measures.", examples: ["Example: In a right triangle, the two legs are 6 and 8. What is the length of the hypotenuse?", "Example: If $\sin(x) = \frac{3}{5}$ in a right triangle, what is the value of $\cos(x)$?"] },
+                'circles': { label: 'Circles', parent: 'geometry', x: 150, y: 400, color: 'var(--sub-topic-color)', radius: 50, originalRadius: 50, isVisible: false, details: "Circle problems on the SAT cover area, circumference, arcs, sectors, and equations of a circle.", examples: ["Example: The equation of a circle is $(x-3)^2 + (y+4)^2 = 25$. What is the center and radius of the circle?", "Example: A circle has a radius of 6. What is the area of a sector with a central angle of $60^\circ$?"] }
             };
 
             let panX = 0;
             let panY = 0;
             let scale = 1.0;
             let isPanning = false;
-            let startX, startY;
+            let startX = 0, startY = 0;
 
             // --- Canvas Setup and Drawing ---
 
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
-                draw();
             }
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
+
+            function animate() {
+                // Update animation state
+                for (const key in nodes) {
+                    const node = nodes[key];
+                    if (node.isVisible) {
+                        // Simple pulsating effect
+                        node.radius = node.originalRadius + Math.sin(Date.now() / 500) * 5;
+                    }
+                }
+                
+                draw();
+                requestAnimationFrame(animate);
+            }
 
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -157,12 +173,15 @@
                 ctx.translate(canvas.width / 2 + panX, canvas.height / 2 + panY);
                 ctx.scale(scale, scale);
 
-                // Draw lines and connectors first
+                // Draw lines and connectors first, only if parent and child are visible
                 drawConnectors();
                 
-                // Draw all nodes on top
+                // Draw all visible nodes on top
                 for (const key in nodes) {
-                    drawNode(nodes[key]);
+                    const node = nodes[key];
+                    if (node.isVisible) {
+                        drawNode(node);
+                    }
                 }
 
                 ctx.restore();
@@ -171,12 +190,8 @@
             function drawConnectors() {
                 for (const key in nodes) {
                     const node = nodes[key];
-                    let parentNode = nodes['sat-math-hub'];
-                    if (node.parent) {
-                        parentNode = nodes[node.parent];
-                    }
-
-                    if (parentNode) {
+                    if (node.parent && node.isVisible) {
+                        const parentNode = nodes[node.parent];
                          // Draw curved line from parent to current node
                         ctx.beginPath();
                         ctx.moveTo(parentNode.x, parentNode.y);
@@ -194,9 +209,12 @@
             }
             
             function drawNode(node) {
+                ctx.save();
+                ctx.translate(node.x, node.y);
+
                 // Draw the circle
                 ctx.beginPath();
-                ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI);
+                ctx.arc(0, 0, node.radius, 0, 2 * Math.PI);
                 ctx.fillStyle = node.color;
                 ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
                 ctx.shadowBlur = 10;
@@ -230,10 +248,11 @@
                 if (node.label === 'SAT Math') {
                     ctx.font = 'bold 24px Segoe UI, Tahoma, Geneva, Verdana, sans-serif';
                 }
-                let startY = node.y - ((lines.length - 1) * lineHeight) / 2;
+                let startY = -((lines.length - 1) * lineHeight) / 2;
                 lines.forEach((l, i) => {
-                    ctx.fillText(l, node.x, startY + i * lineHeight);
+                    ctx.fillText(l, 0, startY + i * lineHeight);
                 });
+                ctx.restore();
             }
 
             // --- Event Listeners for Pan, Zoom, and Clicks ---
@@ -245,12 +264,10 @@
                 canvas.style.cursor = 'grabbing';
             });
 
-            // These are now on the window for better pan functionality
             window.addEventListener('mousemove', (e) => {
                 if (!isPanning) return;
                 panX = e.clientX - startX;
                 panY = e.clientY - startY;
-                draw();
             });
 
             window.addEventListener('mouseup', () => {
@@ -273,8 +290,6 @@
                 panX -= mouseX * (newScale - scale) / newScale;
                 panY -= mouseY * (newScale - scale) / newScale;
                 scale = newScale;
-
-                draw();
             });
 
             canvas.addEventListener('click', (e) => {
@@ -292,8 +307,18 @@
                         (adjustedMouseY - node.y) ** 2
                     );
 
-                    if (distance < node.radius) {
+                    if (distance < node.radius && node.isVisible) {
                         populateInfoPanel(node);
+                        // Toggle sub-nodes for main categories
+                        if (['algebra', 'advanced-math', 'problem-solving', 'geometry'].includes(key)) {
+                            node.isExpanded = !node.isExpanded;
+                            for (const subKey in nodes) {
+                                const subNode = nodes[subKey];
+                                if (subNode.parent === key) {
+                                    subNode.isVisible = node.isExpanded;
+                                }
+                            }
+                        }
                         break;
                     }
                 }
@@ -324,7 +349,7 @@
                 infoPanel.classList.add('info-panel-hidden');
             });
 
-            draw();
+            animate();
         };
     </script>
 </body>
