@@ -1,213 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SATNav for Math</title>
-<style>
-  body, html { margin:0; padding:0; width:100%; height:100%; overflow:hidden; font-family:sans-serif; background:#0d1117; color:white;}
-  header { background:#1f6feb; padding:12px; text-align:center; font-size:1.6em; font-weight:600;}
-  #map { width:100%; height:calc(100vh - 50px);}
-  .node circle { cursor:pointer; transition: fill 0.3s, r 0.3s;}
-  .node circle:hover { fill:#ff922b !important;}
-  #panel, #mobilePanel { position:fixed; background:#161b22; color:white; z-index:10; transition:transform 0.3s ease-in-out;}
-  #panel { top:0; right:0; width:30%; height:100%; transform:translateX(100%); padding:20px; overflow-y:auto;}
-  #panel.open { transform:translateX(0);}
-  #mobilePanel { bottom:0; left:0; width:100%; height:100%; transform:translateY(100%); padding:20px; overflow-y:auto;}
-  #mobilePanel.open { transform:translateY(0);}
-  .close-btn { cursor:pointer; color:#ccc; font-size:1.3em; float:right;}
-  footer { position:fixed; bottom:5px; right:10px; font-size:0.9em; color:#bbb;}
-  svg path.connector { stroke-width:2px; fill:none; transition:stroke 0.3s;}
-  svg path.connector:hover { stroke:#ff922b;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATNav for Math</title>
+    <style>
+        :root {
+            --bg-color: #1a1a2e;
+            --primary-text-color: #e4e4e4;
+            --secondary-text-color: #b1b1c1;
+        
+            --algebra-color: #ff6384;
+            --advanced-math-color: #36a2eb;
+            --problem-solving-color: #ffcd56;
+            --geometry-color: #4bc0c0;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text-color);
+            overflow: hidden; /* Prevent scrolling */
+        }
+        
+        .top-bar {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: var(--primary-text-color);
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        
+        #concept-map-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            cursor: grab;
+        }
+        
+        .concept-node {
+            position: absolute;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            text-align: center;
+        }
+        
+        .concept-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        #central-hub {
+            background-color: #6a6a8a;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+        }
+        
+        .algebra-color { background-color: var(--algebra-color); }
+        .advanced-math-color { background-color: var(--advanced-math-color); }
+        .problem-solving-color { background-color: var(--problem-solving-color); }
+        .geometry-color { background-color: var(--geometry-color); }
+        
+        .branding {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            color: var(--secondary-text-color);
+            font-size: 0.8rem;
+        }
+        
+        #info-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 100vh;
+            background-color: #2b2b41;
+            padding: 2rem;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 20;
+            overflow-y: auto;
+        }
+        
+        .info-panel-visible {
+            transform: translateX(0);
+        }
+        
+        #close-panel {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            #info-panel {
+                width: 100vw;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>SATNav for Math</header>
-<div id="map"></div>
+    <header class="top-bar">
+        <h1>SATNav for Math</h1>
+    </header>
 
-<div id="panel">
-  <span class="close-btn" onclick="closePanel()">✖</span>
-  <h2 id="topicTitle"></h2>
-  <p id="topicDesc"></p>
-  <p><strong>Example:</strong> <span id="topicExample"></span></p>
-</div>
+    <main id="concept-map-container">
+        <div id="central-hub" class="concept-node">SAT Math</div>
+        <div id="algebra" class="concept-node algebra-color">Algebra & Linear Equations</div>
+        <div id="advanced-math" class="concept-node advanced-math-color">Advanced Math</div>
+        <div id="problem-solving" class="concept-node problem-solving-color">Problem Solving & Data Analysis</div>
+        <div id="geometry" class="concept-node geometry-color">Geometry & Trigonometry</div>
+    </main>
 
-<div id="mobilePanel">
-  <span class="close-btn" onclick="closeMobilePanel()">✖</span>
-  <h2 id="mobileTopicTitle"></h2>
-  <p id="mobileTopicDesc"></p>
-  <p><strong>Example:</strong> <span id="mobileTopicExample"></span></p>
-</div>
+    <div id="info-panel" class="info-panel-hidden">
+        <button id="close-panel">X</button>
+        <h2 id="panel-title"></h2>
+        <p id="panel-description"></p>
+        <div id="panel-examples"></div>
+    </div>
 
-<footer>IBMC.pk</footer>
+    <footer class="branding">
+        <span>IBMC.pk</span>
+    </footer>
 
-<script src="https://d3js.org/d3.v6.min.js"></script>
-<script>
-const topicData = {
-  "Algebra": {
-    color: "#3b82f6",
-    children: [
-      {
-        name: "Linear equations & functions",
-        desc: "Solve linear equations or interpret linear functions in context.",
-        example: "If 2x + 3 = 11, then x = 4."
-      },
-      {
-        name: "Systems of linear equations",
-        desc: "Solve a system of two linear equations in two variables.",
-        example: "If 2x + y = 7 and x - y = 1, then x = 2, y = 3."
-      },
-      {
-        name: "Linear inequalities",
-        desc: "Solve and interpret linear inequalities.",
-        example: "Solve 3x - 5 ≤ 7 → x ≤ 4."
-      }
-    ]
-  },
-  "Advanced Math": {
-    color: "#a855f7",
-    children: [
-      {
-        name: "Quadratic & nonlinear equations",
-        desc: "Solve and interpret quadratics, radicals, exponentials, etc.",
-        example: "x² – 5x + 6 = 0 → x = 2 or x = 3."
-      },
-      {
-        name: "Equivalent expressions & functions",
-        desc: "Manipulate expressions and interpret nonlinear functions.",
-        example: "Rewrite (x² − 9)/(x − 3) as x + 3."
-      },
-      {
-        name: "Nonlinear systems",
-        desc: "Solve systems that include at least one nonlinear equation.",
-        example: "Solve x² + y = 7 and x + y = 3 → x = 2, y = 1."
-      }
-    ]
-  },
-  "Problem-Solving & Data Analysis": {
-    color: "#22c55e",
-    children: [
-      {
-        name: "Ratios, rates & percentages",
-        desc: "Apply ratios, rates, unit conversions, and percentages.",
-        example: "A 20% discount on $50 → $50 × 0.80 = $40."
-      },
-      {
-        name: "Data distributions & statistics",
-        desc: "Interpret center, spread, outliers, and distributions.",
-        example: "Data set 2,4,6,8 – mean = 5, range = 6."
-      },
-      {
-        name: "Probability & scatterplots",
-        desc: "Analyze conditional probability and scatterplot trends.",
-        example: "P(heads twice in two flips) = 1/4."
-      }
-    ]
-  },
-  "Geometry & Trigonometry": {
-    color: "#f97316",
-    children: [
-      {
-        name: "Area, volume & shapes",
-        desc: "Compute perimeter, area, and volume of geometric figures.",
-        example: "Area of rectangle 4×5 = 20."
-      },
-      {
-        name: "Angles, triangles & lines",
-        desc: "Solve problems with angles, triangles, including right-triangle trig.",
-        example: "In right triangle, if sin 30° = 1/2, opposite = 5 → hypotenuse = 10."
-      },
-      {
-        name: "Circles",
-        desc: "Apply circle properties: circumference, area, arcs, chords.",
-        example: "Circle radius 3 → area = 9π."
-      }
-    ]
-  }
-};
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const infoPanel = document.getElementById('info-panel');
+            const closeButton = document.getElementById('close-panel');
+            const conceptNodes = document.querySelectorAll('.concept-node');
 
-const width = window.innerWidth, height = window.innerHeight - 50;
-const svg = d3.select("#map").append("svg")
-  .attr("width", width).attr("height", height)
-  .call(d3.zoom().on("zoom", event => g.attr("transform", event.transform)))
-  .append("g").attr("transform", `translate(${width/2},${height/2})`);
-const g = svg.append("g");
+            conceptNodes.forEach(node => {
+                node.addEventListener('click', () => {
+                    document.getElementById('panel-title').textContent = node.textContent;
+                    document.getElementById('panel-description').textContent = "This is a placeholder description for " + node.textContent + ".";
+                    infoPanel.classList.remove('info-panel-hidden');
+                    infoPanel.classList.add('info-panel-visible');
+                });
+            });
 
-const rootData = {
-  name: "SAT Math",
-  children: Object.entries(topicData).map(([key,val]) => ({
-    name: key,
-    color: val.color,
-    children: val.children
-  }))
-};
+            closeButton.addEventListener('click', () => {
+                infoPanel.classList.remove('info-panel-visible');
+                infoPanel.classList.add('info-panel-hidden');
+            });
 
-const root = d3.hierarchy(rootData);
-d3.tree().size([360, Math.min(width, height)/2 - 120])(root);
-
-function radialPoint(x, y) {
-  const angle = (x - 90) * Math.PI / 180;
-  return [y * Math.cos(angle), y * Math.sin(angle)];
-}
-
-// Curved connectors
-root.links().forEach(link => {
-  const [x1,y1] = radialPoint(link.source.x, link.source.y);
-  const [x2,y2] = radialPoint(link.target.x, link.target.y);
-  const path = d3.path();
-  path.moveTo(x1, y1);
-  path.quadraticCurveTo(0, 0, x2, y2);
-  const strokeColor = link.source.depth === 0
-    ? topicData[link.source.data.name].color
-    : topicData[link.source.parent.data.name].color;
-  g.append("path").attr("d", path.toString())
-    .attr("class", "connector")
-    .attr("stroke", strokeColor);
-});
-
-const node = g.selectAll(".node")
-  .data(root.descendants())
-  .enter().append("g")
-  .attr("class","node")
-  .attr("transform", d => `translate(${radialPoint(d.x, d.y)})`);
-
-node.append("circle")
-  .attr("r", d => d.depth===0 ? 60 : d.depth===1 ? 50 : 35)
-  .attr("fill", d => {
-    if (d.depth === 0) return "#1f6feb";
-    const parent = d.ancestors()[1].data.name;
-    return topicData[parent].color;
-  })
-  .on("click", (event, d) => {
-    if (d.depth === 2) {
-      const info = topicData[d.ancestors()[1].data.name].children
-        .find(c => c.name === d.data.name);
-      if (window.innerWidth > 768) openPanel(info);
-      else openMobilePanel(info);
-    }
-  });
-
-node.append("text")
-  .attr("dy", d => d.depth===0 ? 5 : 4)
-  .attr("text-anchor", "middle")
-  .attr("fill","white")
-  .style("pointer-events","none")
-  .style("font-size", d => d.depth===0 ? "16px" : d.depth===1 ? "14px" : "12px")
-  .text(d => d.data.name);
-
-function openPanel(info) {
-  document.getElementById("topicTitle").innerText = info.name;
-  document.getElementById("topicDesc").innerText = info.desc;
-  document.getElementById("topicExample").innerText = info.example;
-  document.getElementById("panel").classList.add("open");
-}
-function closePanel(){ document.getElementById("panel").classList.remove("open"); }
-function openMobilePanel(info) {
-  document.getElementById("mobileTopicTitle").innerText = info.name;
-  document.getElementById("mobileTopicDesc").innerText = info.desc;
-  document.getElementById("mobileTopicExample").innerText = info.example;
-  document.getElementById("mobilePanel").classList.add("open");
-}
-function closeMobilePanel(){ document.getElementById("mobilePanel").classList.remove("open"); }
-</script>
+            console.log("Pan and zoom functionality will be implemented here.");
+        });
+    </script>
 </body>
 </html>
