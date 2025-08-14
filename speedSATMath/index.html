@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Question Sprint Trainer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Question Sprint Trainer</h1>
+    <div id="controls">
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty">
+            <option value="all">Mixed</option>
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+        </select>
+
+        <label for="numQuestions">Questions per sprint:</label>
+        <select id="numQuestions">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <button id="startBtn">Start Sprint</button>
+    </div>
+
+    <div id="progressBarContainer">
+        <div id="progressBar"></div>
+    </div>
+
+    <div id="questionContainer"></div>
+
+    <div id="result"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
