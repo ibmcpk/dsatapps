@@ -1,1 +1,688 @@
-[]
+[
+  {
+    "problem": "Solve for x: 2x + 5 = 11",
+    "choices": [
+      "x = 2",
+      "x = 3",
+      "x = 4",
+      "x = 5"
+    ],
+    "correct": "x = 3",
+    "difficulty": 1,
+    "hints": [
+      "Subtract 5 from both sides",
+      "Divide by 2"
+    ]
+  },
+  {
+    "problem": "Find the slope of the line through (2, 3) and (5, 9).",
+    "choices": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "correct": "2",
+    "difficulty": 1,
+    "hints": [
+      "Slope = (y\u2082 - y\u2081) / (x\u2082 - x\u2081)"
+    ]
+  },
+  {
+    "problem": "Simplify: 5x - 3x + 7",
+    "choices": [
+      "2x + 7",
+      "8x + 7",
+      "2x - 7",
+      "8x - 7"
+    ],
+    "correct": "2x + 7",
+    "difficulty": 1,
+    "hints": [
+      "Combine like terms"
+    ]
+  },
+  {
+    "problem": "If y = 3x + 2 and x = 4, find y.",
+    "choices": [
+      "12",
+      "14",
+      "16",
+      "18"
+    ],
+    "correct": "14",
+    "difficulty": 1,
+    "hints": [
+      "Substitute x = 4 into equation"
+    ]
+  },
+  {
+    "problem": "What is 15% of 200?",
+    "choices": [
+      "25",
+      "30",
+      "35",
+      "40"
+    ],
+    "correct": "30",
+    "difficulty": 1,
+    "hints": [
+      "15% \u00d7 200 = 0.15 \u00d7 200"
+    ]
+  },
+  {
+    "problem": "The average of 6 and 10 is:",
+    "choices": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correct": "8",
+    "difficulty": 1,
+    "hints": [
+      "Average = (sum of numbers) \u00f7 count"
+    ]
+  },
+  {
+    "problem": "If 5x = 25, find x.",
+    "choices": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "correct": "5",
+    "difficulty": 1,
+    "hints": [
+      "Divide both sides by 5"
+    ]
+  },
+  {
+    "problem": "Simplify: 4\u00b2 + 3\u00b2",
+    "choices": [
+      "7",
+      "12",
+      "16",
+      "25"
+    ],
+    "correct": "25",
+    "difficulty": 1,
+    "hints": [
+      "Square first, then add"
+    ]
+  },
+  {
+    "problem": "What is the perimeter of a rectangle with length 8 and width 5?",
+    "choices": [
+      "13",
+      "26",
+      "40",
+      "16"
+    ],
+    "correct": "26",
+    "difficulty": 1,
+    "hints": [
+      "Perimeter = 2 \u00d7 (L + W)"
+    ]
+  },
+  {
+    "problem": "If a number is increased by 7, the result is 15. Find the number.",
+    "choices": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correct": "8",
+    "difficulty": 1,
+    "hints": [
+      "Subtract 7 from both sides"
+    ]
+  },
+  {
+    "problem": "Solve: x/4 = 5",
+    "choices": [
+      "10",
+      "15",
+      "20",
+      "25"
+    ],
+    "correct": "20",
+    "difficulty": 1,
+    "hints": [
+      "Multiply both sides by 4"
+    ]
+  },
+  {
+    "problem": "The square root of 81 is:",
+    "choices": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correct": "9",
+    "difficulty": 1,
+    "hints": [
+      "9 \u00d7 9 = 81"
+    ]
+  },
+  {
+    "problem": "Simplify: (3x)(4x)",
+    "choices": [
+      "7x\u00b2",
+      "12x\u00b2",
+      "12x",
+      "7x"
+    ],
+    "correct": "12x\u00b2",
+    "difficulty": 1,
+    "hints": [
+      "Multiply coefficients, add exponents"
+    ]
+  },
+  {
+    "problem": "If 12 is 30% of x, find x.",
+    "choices": [
+      "36",
+      "38",
+      "40",
+      "42"
+    ],
+    "correct": "40",
+    "difficulty": 1,
+    "hints": [
+      "12 = 0.30 \u00d7 x"
+    ]
+  },
+  {
+    "problem": "Find the value of 7\u00b2 - 5\u00b2.",
+    "choices": [
+      "12",
+      "24",
+      "48",
+      "4"
+    ],
+    "correct": "24",
+    "difficulty": 1,
+    "hints": [
+      "Use difference of squares formula"
+    ]
+  },
+  {
+    "problem": "If 3y = 18, find y.",
+    "choices": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct": "6",
+    "difficulty": 1,
+    "hints": [
+      "Divide both sides by 3"
+    ]
+  },
+  {
+    "problem": "Simplify: (10x - 2x)",
+    "choices": [
+      "8",
+      "8x",
+      "12x",
+      "2x"
+    ],
+    "correct": "8x",
+    "difficulty": 1,
+    "hints": [
+      "Combine like terms"
+    ]
+  },
+  {
+    "problem": "If the radius of a circle is 3, find its diameter.",
+    "choices": [
+      "3",
+      "6",
+      "9",
+      "12"
+    ],
+    "correct": "6",
+    "difficulty": 1,
+    "hints": [
+      "Diameter = 2 \u00d7 radius"
+    ]
+  },
+  {
+    "problem": "Find the value: (2\u00b3) \u00d7 (2\u00b2)",
+    "choices": [
+      "4",
+      "6",
+      "8",
+      "32"
+    ],
+    "correct": "32",
+    "difficulty": 1,
+    "hints": [
+      "Add exponents when multiplying same base"
+    ]
+  },
+  {
+    "problem": "If a = 5 and b = 2, find a\u00b2 + b\u00b2.",
+    "choices": [
+      "9",
+      "12",
+      "25",
+      "29"
+    ],
+    "correct": "29",
+    "difficulty": 1,
+    "hints": [
+      "Square each and add"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 21 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 22 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 23 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 24 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 25 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 26 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 27 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 28 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 29 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 30 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 31 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 32 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 33 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 34 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 35 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 36 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 37 (difficulty 2)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 2,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 38 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 39 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 40 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 41 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 42 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 43 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 44 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 45 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 46 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  },
+  {
+    "problem": "Sample SAT math question 47 (difficulty 3)",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "correct": "A",
+    "difficulty": 3,
+    "hints": [
+      "Think step-by-step",
+      "Eliminate wrong answers"
+    ]
+  }
+]
