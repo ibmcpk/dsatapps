@@ -6,20 +6,18 @@
 <title>SATNav for Math</title>
 <style>
   body, html { margin:0; padding:0; width:100%; height:100%; overflow:hidden; font-family: sans-serif; background:#0d1117; color:white; }
-  header { background:#1f6feb; padding:12px; text-align:center; font-size:1.6em; font-weight:600; letter-spacing:1px; }
+  header { background:#1f6feb; padding:12px; text-align:center; font-size:1.6em; font-weight:600; }
   #map { width:100%; height:calc(100vh - 50px); }
   .node circle { cursor:pointer; transition: fill 0.3s, r 0.3s; }
-  .node circle:hover { fill:#ff922b !important; r:50px !important; }
+  .node circle:hover { fill:#ff922b !important; }
   #panel, #mobilePanel { position:fixed; background:#161b22; color:white; z-index:10; transition:transform 0.3s ease-in-out; }
-  /* Desktop side panel */
   #panel { top:0; right:0; width:30%; height:100%; transform:translateX(100%); padding:20px; overflow-y:auto; }
   #panel.open { transform:translateX(0); }
-  /* Mobile overlay */
   #mobilePanel { bottom:0; left:0; width:100%; height:100%; transform:translateY(100%); padding:20px; overflow-y:auto; }
   #mobilePanel.open { transform:translateY(0); }
   .close-btn { cursor:pointer; color:#ccc; font-size:1.3em; float:right; }
   footer { position:fixed; bottom:5px; right:10px; font-size:0.9em; color:#bbb; }
-  svg path.connector { stroke:#444; stroke-width:2px; fill:none; transition:stroke 0.3s; }
+  svg path.connector { stroke-width:2px; fill:none; transition:stroke 0.3s; }
   svg path.connector:hover { stroke:#ff922b; }
 </style>
 </head>
@@ -27,60 +25,76 @@
 <header>SATNav for Math</header>
 <div id="map"></div>
 
-<!-- Desktop panel -->
 <div id="panel">
   <span class="close-btn" onclick="closePanel()">✖</span>
   <h2 id="topicTitle"></h2>
   <p id="topicDesc"></p>
-  <p><strong>Example:</strong> <span id="topicExample"></span></p>
 </div>
 
-<!-- Mobile panel -->
 <div id="mobilePanel">
   <span class="close-btn" onclick="closeMobilePanel()">✖</span>
   <h2 id="mobileTopicTitle"></h2>
   <p id="mobileTopicDesc"></p>
-  <p><strong>Example:</strong> <span id="mobileTopicExample"></span></p>
 </div>
 
 <footer>IBMC.pk</footer>
 
 <script src="https://d3js.org/d3.v6.min.js"></script>
 <script>
-  // Official College Board categories and descriptions :contentReference[oaicite:0]{index=0}
-  const topicsInfo = {
+  // Official College Board subtopics :contentReference[oaicite:1]{index=1}
+  const topicData = {
     "Algebra": {
-      desc: "Develop, analyze, or solve linear equations and inequalities as well as systems of equations.",
-      example: "Solve: 2x + 3 = 11 (x = 4)."
+      color: "#3b82f6",
+      children: [
+        { name: "Linear equations & functions", desc: "Solve linear equations in one or two variables; understand linear functions." },
+        { name: "Systems of linear equations", desc: "Analyze and solve systems of two linear equations." },
+        { name: "Linear inequalities", desc: "Solve and interpret linear inequalities." }
+      ]
     },
     "Advanced Math": {
-      desc: "Work with quadratic equations, polynomial operations, and function notation.",
-      example: "Solve: x² – 5x + 6 = 0 (x = 2 or 3)."
+      color: "#a855f7",
+      children: [
+        { name: "Quadratic & nonlinear equations", desc: "Work with quadratic, exponential, polynomial, radical, or absolute-value equations." },
+        { name: "Equivalent expressions & functions", desc: "Manipulate expressions and interpret nonlinear functions." },
+        { name: "Systems involving nonlinear", desc: "Solve systems with nonlinear equations." }
+      ]
     },
     "Problem-Solving & Data Analysis": {
-      desc: "Interpret ratios, rates, percentages, analyze data, and evaluate statistical claims.",
-      example: "What is the mean of 4, 6, 10? (mean = 20/3 ≈ 6.67)."
+      color: "#22c55e",
+      children: [
+        { name: "Ratios, rates & percentages", desc: "Apply ratios, rates, percentages, and units." },
+        { name: "Data distribution & statistics", desc: "Analyze distributions, measures of center/spread, inference, margin of error." },
+        { name: "Probability & scatterplots", desc: "Interpret probability, conditional probability, scatterplots, and data models." }
+      ]
     },
     "Geometry & Trigonometry": {
-      desc: "Solve perimeter/area/volume problems, angles, triangles, circles, and right triangle trigonometry.",
-      example: "Find sin 30° (sin 30° = 1/2)."
+      color: "#f97316",
+      children: [
+        { name: "Area, volume & shapes", desc: "Compute perimeter, area, volume for various figures." },
+        { name: "Angles, triangles & lines", desc: "Solve angle and triangle problems, including right-triangle trigonometry." },
+        { name: "Circles", desc: "Understand circles' area, circumference, and properties." }
+      ]
     }
   };
 
-  const width = window.innerWidth, height = window.innerHeight - 50;
+  const width = window.innerWidth;
+  const height = window.innerHeight - 50;
   const svg = d3.select("#map").append("svg")
-    .attr("width", width).attr("height", height)
-    .call(d3.zoom().on("zoom", event => g.attr("transform", event.transform)))
-    .append("g");
-  const g = svg.append("g").attr("transform", `translate(${width/2},${height/2})`);
+      .attr("width", width).attr("height", height)
+      .call(d3.zoom().on("zoom", event => g.attr("transform", event.transform)))
+      .append("g").attr("transform", `translate(${width/2},${height/2})`);
+  const g = svg.append("g");
 
-  // Radial tree data
-  const data = {
-    name:"SAT Math",
-    children: Object.keys(topicsInfo).map(k => ({ name: k }))
+  const rootData = {
+    name: "SAT Math",
+    children: Object.entries(topicData).map(([key, val]) => ({
+      name: key,
+      color: val.color,
+      children: val.children
+    }))
   };
 
-  const root = d3.hierarchy(data);
+  const root = d3.hierarchy(rootData);
   d3.tree().size([360, Math.min(width, height)/2 - 100])(root);
 
   function radialPoint(x, y) {
@@ -88,59 +102,55 @@
     return [y * Math.cos(angle), y * Math.sin(angle)];
   }
 
-  // Curved connectors
+  // Curved links
   root.links().forEach(link => {
     const [x1,y1] = radialPoint(link.source.x, link.source.y);
     const [x2,y2] = radialPoint(link.target.x, link.target.y);
     const path = d3.path();
     path.moveTo(x1, y1);
-    path.quadraticCurveTo(0,0, x2, y2);
-    g.append("path")
-      .attr("d", path.toString())
-      .attr("class", "connector");
+    path.quadraticCurveTo(0, 0, x2, y2);
+    g.append("path").attr("d", path.toString())
+      .attr("class", "connector")
+      .attr("stroke", link.source.depth === 0 ? topicData[link.source.data.name].color : topicData[link.source.parent.data.name].color);
   });
 
-  // Nodes
   const node = g.selectAll(".node")
-    .data(root.descendants())
-    .enter().append("g")
-    .attr("class","node")
-    .attr("transform", d => `translate(${radialPoint(d.x, d.y)})`);
+      .data(root.descendants())
+      .enter().append("g")
+      .attr("class","node")
+      .attr("transform", d => `translate(${radialPoint(d.x, d.y)})`);
 
   node.append("circle")
-    .attr("r", d => d.depth===0 ? 60 : 40)
-    .attr("fill", d => d.depth===0 ? "#1f6feb" : "#2ea44f")
-    .on("click", (event, d) => {
-      if (d.depth > 0) {
-        const topic = d.data.name;
-        if (window.innerWidth > 768) openPanel(topic);
-        else openMobilePanel(topic);
-      }
-    });
+      .attr("r", d => d.depth===0 ? 60 : d.depth===1 ? 50 : 35)
+      .attr("fill", d => {
+        if (d.depth === 0) return "#1f6feb";
+        const parent = d.ancestors()[1].data.name;
+        return topicData[parent].color;
+      })
+      .on("click", (event, d) => {
+        if (d.depth === 2) handleTopicClick(d.data.name, d.data.desc || "");
+      });
 
   node.append("text")
-    .attr("dy", d => d.depth===0 ? 5 : 4)
-    .attr("text-anchor", "middle")
-    .attr("fill","white")
-    .style("pointer-events","none")
-    .style("font-size", d => d.depth===0 ? "16px" : "12px")
-    .text(d => d.data.name);
+      .attr("dy", d => d.depth===0 ? 5 : 4)
+      .attr("text-anchor", "middle")
+      .attr("fill","white")
+      .style("pointer-events","none")
+      .style("font-size", d => d.depth===0 ? "16px" : d.depth===1 ? "14px" : "12px")
+      .text(d => d.data.name);
 
-  // Side panel handlers
-  function openPanel(topic) {
-    document.getElementById("topicTitle").innerText = topic;
-    document.getElementById("topicDesc").innerText = topicsInfo[topic].desc;
-    document.getElementById("topicExample").innerText = topicsInfo[topic].example;
-    document.getElementById("panel").classList.add("open");
+  function handleTopicClick(name, desc) {
+    if (window.innerWidth > 768) {
+      document.getElementById("topicTitle").innerText = name;
+      document.getElementById("topicDesc").innerText = desc;
+      document.getElementById("panel").classList.add("open");
+    } else {
+      document.getElementById("mobileTopicTitle").innerText = name;
+      document.getElementById("mobileTopicDesc").innerText = desc;
+      document.getElementById("mobilePanel").classList.add("open");
+    }
   }
   function closePanel(){ document.getElementById("panel").classList.remove("open"); }
-
-  function openMobilePanel(topic) {
-    document.getElementById("mobileTopicTitle").innerText = topic;
-    document.getElementById("mobileTopicDesc").innerText = topicsInfo[topic].desc;
-    document.getElementById("mobileTopicExample").innerText = topicsInfo[topic].example;
-    document.getElementById("mobilePanel").classList.add("open");
-  }
   function closeMobilePanel(){ document.getElementById("mobilePanel").classList.remove("open"); }
 </script>
 </body>
