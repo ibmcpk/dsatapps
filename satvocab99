@@ -506,21 +506,21 @@
     {
         "words": ["Accolade", "Denigrate"],
         "meaning": "An **accolade** is an award or honor. To **denigrate** is to criticize unfairly, which is the opposite of giving an award.",
-        "example": "The artist received an **accolade** for her work, but also faced public attempts to **denigrate** her from critics.",
+        "example": "The artist received an <b>accolade</b> for her work, but also faced public attempts to <b>denigrate</b> her from critics.",
         "urduWord": "اعزاز، بدنام کرنا",
         "romanUrduHint": "Aizaaz, Badnaam karna"
     },
     {
         "words": ["Acquiesce", "Persevere"],
         "meaning": "To **acquiesce** is to accept something reluctantly. To **persevere** is to continue despite difficulty, which implies resisting.",
-        "example": "She had no choice but to **acquiesce** to the new demands, but she was determined to **persevere** and find a way to make it work.",
+        "example": "She had no choice but to <b>acquiesce</b> to the new demands, but she was determined to <b>persevere</b> and find a way to make it work.",
         "urduWord": "رضامند ہونا، استقامت دکھانا",
         "romanUrduHint": "Razamand hona, Istiqamat dikhana"
     },
     {
         "words": ["Aesthetic", "Utilitarian"],
         "meaning": "**Aesthetic** is concerned with beauty. **Utilitarian** is concerned with being useful or practical.",
-        "example": "The architect valued the **aesthetic** design of the building, but the client was more interested in its **utilitarian** features.",
+        "example": "The architect valued the <b>aesthetic</b> design of the building, but the client was more interested in its <b>utilitarian</b> features.",
         "urduWord": "جمالیاتی، افادی",
         "romanUrduHint": "Jamaliyati, Ifadi"
     },
@@ -534,161 +534,161 @@
     {
         "words": ["Animosity", "Benevolent"],
         "meaning": "**Animosity** is a strong hostility. **Benevolent** means well-meaning and kindly, which is a direct opposite.",
-        "example": "There was a long-standing **animosity** between the two rivals, but the **benevolent** leader sought a peaceful resolution.",
+        "example": "There was a long-standing <b>animosity</b> between the two rivals, but the <b>benevolent</b> leader sought a peaceful resolution.",
         "urduWord": "عداوت، فیاض",
         "romanUrduHint": "Adavat, Fayyaz"
     },
     {
         "words": ["Arduous", "Placid"],
         "meaning": "An **arduous** task requires strenuous effort. **Placid** is a state of calm and peace, a conceptual opposite.",
-        "example": "The climb was an **arduous** journey, but the **placid** lake at the summit provided a welcome reward.",
+        "example": "The climb was an <b>arduous</b> journey, but the <b>placid</b> lake at the summit provided a welcome reward.",
         "urduWord": "مشقت طلب، پرسکون",
         "romanUrduHint": "Mashaqqat talab, Pur-sukoon"
     },
     {
         "words": ["Ascetic", "Profligate"],
         "meaning": "An **ascetic** person practices severe self-discipline. A **profligate** person is wasteful and immoral, a clear opposite.",
-        "example": "The monk lived an **ascetic** life of prayer and fasting, while the **profligate** ruler spent his kingdom's wealth on lavish parties.",
+        "example": "The monk lived an <b>ascetic</b> life of prayer and fasting, while the <b>profligate</b> ruler spent his kingdom's wealth on lavish parties.",
         "urduWord": "زاہد، عیاش",
         "romanUrduHint": "Zahid, Ayash"
     },
     {
         "words": ["Auspicious", "Pernicious"],
         "meaning": "An **auspicious** start is favorable and conducive to success. **Pernicious** has a harmful effect, a direct opposite.",
-        "example": "The new year had an **auspicious** beginning, but the company's **pernicious** influence slowly spread throughout the industry.",
+        "example": "The new year had an <b>auspicious</b> beginning, but the company's <b>pernicious</b> influence slowly spread throughout the industry.",
         "urduWord": "مبارک، مضر",
         "romanUrduHint": "Mubarak, Muzir"
     },
     {
         "words": ["Benevolent", "Nefarious"],
         "meaning": "A **benevolent** person is well-meaning and kindly. A **nefarious** person is wicked and criminal, a direct opposite.",
-        "example": "The **benevolent** king was loved by all, but the stories of the **nefarious** wizard terrified the children.",
+        "example": "The <b>benevolent</b> king was loved by all, but the stories of the <b>nefarious</b> wizard terrified the children.",
         "urduWord": "فیاض، بدکار",
         "romanUrduHint": "Fayyaz, Badkaar"
     },
     {
         "words": ["Cajole", "Intimidate"],
         "meaning": "To **cajole** is to persuade with flattery. To **intimidate** is to make someone timid or afraid, which is the opposite of persuading them gently.",
-        "example": "He tried to **cajole** her into going to the party with compliments, but she felt he was trying to **intimidate** her into going.",
+        "example": "He tried to <b>cajole</b> her into going to the party with compliments, but she felt he was trying to <b>intimidate</b> her into going.",
         "urduWord": "پھسلانا، ڈرانا",
         "romanUrduHint": "Phuslana, Darana"
     },
     {
         "words": ["Calumny", "Extol"],
         "meaning": "A **calumny** is a false and slanderous statement. To **extol** is to praise enthusiastically, a direct opposite.",
-        "example": "The politician's campaign was damaged by the **calumny** of his opponent, but his supporters were quick to **extol** his accomplishments.",
+        "example": "The politician's campaign was damaged by the <b>calumny</b> of his opponent, but his supporters were quick to <b>extol</b> his accomplishments.",
         "urduWord": "بہتان، تعریف کرنا",
         "romanUrduHint": "Buhtan, Tareef karna"
     },
     {
         "words": ["Capitulate", "Persevere"],
         "meaning": "To **capitulate** is to give in to a demand. To **persevere** is to continue despite difficulty, which is the opposite of giving in.",
-        "example": "The army was forced to **capitulate** after a long siege, but the general insisted his troops **persevere** to the very end.",
+        "example": "The army was forced to <b>capitulate</b> after a long siege, but the general insisted his troops <b>persevere</b> to the very end.",
         "urduWord": "ہتھیار ڈالنا، ڈٹے رہنا",
         "romanUrduHint": "Hathyar dalna, Datey rehna"
     },
     {
         "words": ["Circumlocution", "Terse"],
         "meaning": "**Circumlocution** is the use of many words to say something. A **terse** statement is brief and to the point, a direct opposite.",
-        "example": "The politician's **circumlocution** made it difficult to understand his stance, while his opponent's **terse** reply left no room for doubt.",
+        "example": "The politician's <b>circumlocution</b> made it difficult to understand his stance, while his opponent's <b>terse</b> reply left no room for doubt.",
         "urduWord": "گول مول بات، مختصر",
         "romanUrduHint": "Gol mol baat, Mukhtasar"
     },
     {
         "words": ["Clandestine", "Forthright"],
         "meaning": "A **clandestine** act is done secretly. A **forthright** person is direct and honest, the opposite of being secretive.",
-        "example": "The spies had a **clandestine** meeting in the park, but their leader was known for his **forthright** communication.",
+        "example": "The spies had a <b>clandestine</b> meeting in the park, but their leader was known for his <b>forthright</b> communication.",
         "urduWord": "خفیہ، صاف گو",
         "romanUrduHint": "Khufia, Saaf go"
     },
     {
         "words": ["Complacent", "Assiduous"],
         "meaning": "A **complacent** person is smugly satisfied. An **assiduous** person shows continuous and devoted effort, the opposite of being self-satisfied.",
-        "example": "The team became **complacent** after their early wins, but the **assiduous** coach worked tirelessly to prepare them for their rivals.",
+        "example": "The team became <b>complacent</b> after their early wins, but the <b>assiduous</b> coach worked tirelessly to prepare them for their rivals.",
         "urduWord": "مطمئن، مستعد",
         "romanUrduHint": "Mutmain, Mustaid"
     },
     {
         "words": ["Curtail", "Bolster"],
         "meaning": "To **curtail** is to reduce or shorten something. To **bolster** is to support or strengthen it, a conceptual opposite.",
-        "example": "The government decided to **curtail** public services, while at the same time trying to **bolster** the economy with new programs.",
+        "example": "The government decided to <b>curtail</b> public services, while at the same time trying to <b>bolster</b> the economy with new programs.",
         "urduWord": "کم کرنا، سہارا دینا",
         "romanUrduHint": "Kam karna, Sahara dena"
     },
     {
         "words": ["Delineate", "Obfuscate"],
         "meaning": "To **delineate** is to describe something precisely. To **obfuscate** is to make it difficult to understand, a direct opposite.",
-        "example": "The artist was asked to **delineate** the scene in as much detail as possible, but the fog began to **obfuscate** the view.",
+        "example": "The artist was asked to <b>delineate</b> the scene in as much detail as possible, but the fog began to <b>obfuscate</b> the view.",
         "urduWord": "واضح کرنا، مبہم کرنا",
         "romanUrduHint": "Wazeh karna, Mubham karna"
     },
     {
         "words": ["Diffident", "Forthright"],
         "meaning": "A **diffident** person is shy and modest. A **forthright** person is direct and honest, which requires confidence.",
-        "example": "The **diffident** student was too shy to raise his hand, but his friend was **forthright** and spoke her mind.",
+        "example": "The <b>diffident</b> student was too shy to raise his hand, but his friend was <b>forthright</b> and spoke her mind.",
         "urduWord": "شرمیلا، بے باک",
         "romanUrduHint": "Sharmeela, Be-baak"
     },
     {
         "words": ["Egregious", "Laudable"],
         "meaning": "An **egregious** error is outstandingly bad. A **laudable** act is deserving of praise, a direct opposite.",
-        "example": "The company's **egregious** safety violations were shocking, while the charity's **laudable** efforts were praised by the community.",
+        "example": "The company's <b>egregious</b> safety violations were shocking, while the charity's <b>laudable</b> efforts were praised by the community.",
         "urduWord": "بدترین، قابل تعریف",
         "romanUrduHint": "Bad-tareen, Qabil-e-tareef"
     },
     {
         "words": ["Encroach", "Adhere"],
         "meaning": "To **encroach** is to intrude. To **adhere** is to stick fast to a surface or idea, a conceptual opposite of moving into another's space.",
-        "example": "The new construction was beginning to **encroach** on the public park, but the town's strict rules forced them to **adhere** to the original plans.",
+        "example": "The new construction was beginning to <b>encroach</b> on the public park, but the town's strict rules forced them to <b>adhere</b> to the original plans.",
         "urduWord": "دخل اندازی کرنا، پابند رہنا",
         "romanUrduHint": "Dakhal andazi karna, Pabund rehna"
     },
     {
         "words": ["Erudite", "Unpretentious"],
         "meaning": "An **erudite** person has great knowledge. An **unpretentious** person is not trying to impress others, which is a conceptual opposite of being a show of knowledge.",
-        "example": "The professor was an **erudite** scholar who had published several books, but she was always very **unpretentious** about her accomplishments.",
+        "example": "The professor was an <b>erudite</b> scholar who had published several books, but she was always very <b>unpretentious</b> about her accomplishments.",
         "urduWord": "عالم، سادہ",
         "romanUrduHint": "Aalim, Saada"
     },
     {
         "words": ["Extol", "Denigrate"],
         "meaning": "To **extol** is to praise enthusiastically. To **denigrate** is to criticize unfairly, a direct opposite.",
-        "example": "The critics **extolled** the new film for its visuals, but the director was forced to **denigrate** the lead actor for his behavior.",
+        "example": "The critics <b>extolled</b> the new film for its visuals, but the director was forced to <b>denigrate</b> the lead actor for his behavior.",
         "urduWord": "تعریف کرنا، بدنام کرنا",
         "romanUrduHint": "Tareef karna, Badnaam karna"
     },
     {
         "words": ["Fastidious", "Listless"],
         "meaning": "A **fastidious** person is very attentive to detail. A **listless** person lacks energy and enthusiasm, which would prevent them from being attentive.",
-        "example": "The chef was **fastidious** about his ingredients, while his **listless** assistant seemed to have no interest in the work.",
+        "example": "The chef was <b>fastidious</b> about his ingredients, while his <b>listless</b> assistant seemed to have no interest in the work.",
         "urduWord": "نفاست پسند، سست",
         "romanUrduHint": "Nafasat pasand, Sust"
     },
     {
         "words": ["Foster", "Undermine"],
         "meaning": "To **foster** is to encourage development. To **undermine** is to lessen the effectiveness of something, a direct opposite.",
-        "example": "The program was designed to **foster** a sense of community, but the new policies began to **undermine** its goals.",
+        "example": "The program was designed to <b>foster</b> a sense of community, but the new policies began to <b>undermine</b> its goals.",
         "urduWord": "پرورش کرنا، کمزور کرنا",
         "romanUrduHint": "Parwarish karna, Kamzor karna"
     },
     {
         "words": ["Garrulous", "Reticent"],
         "meaning": "A **garrulous** person is excessively talkative. A **reticent** person is reserved and reluctant to talk, a direct opposite.",
-        "example": "The **garrulous** passenger talked the entire flight, while his **reticent** seatmate listened in silence.",
+        "example": "The <b>garrulous</b> passenger talked the entire flight, while his <b>reticent</b> seatmate listened in silence.",
         "urduWord": "باتونی، کم گو",
         "romanUrduHint": "Batooni, Kam go"
     },
     {
         "words": ["Incendiary", "Conciliatory"],
         "meaning": "An **incendiary** remark tends to stir up conflict. A **conciliatory** remark is intended to pacify, a direct opposite.",
-        "example": "The politician's **incendiary** remarks sparked a debate, but the diplomat's **conciliatory** words helped to ease tensions.",
+        "example": "The politician's <b>incendiary</b> remarks sparked a debate, but the diplomat's <b>conciliatory</b> words helped to ease tensions.",
         "urduWord": "اشتعال انگیز، صلح جو",
         "romanUrduHint": "Ishteyaal angez, Sulah jo"
     },
     {
         "words": ["Jubilant", "Poignant"],
         "meaning": "A **jubilant** person feels great happiness. A **poignant** feeling evokes a keen sense of sadness, a direct opposite.",
-        "example": "The team was **jubilant** after their victory, while the loss was a **poignant** moment for their opponents.",
+        "example": "The team was <b>jubilant</b> after their victory, while the loss was a <b>poignant</b> moment for their opponents.",
         "urduWord": "شادمان، دل کو چھونے والا",
         "romanUrduHint": "Shaadman, Dil ko chhone wala"
     }
