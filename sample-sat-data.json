@@ -1,0 +1,35 @@
+[
+  {
+    "Passage": "The quick brown fox jumps over the lazy dog.",
+    "Question": "What color is the fox?",
+    "OptionA": "Red",
+    "OptionB": "Brown",
+    "OptionC": "Black",
+    "OptionD": "White",
+    "CorrectAnswer": "B",
+    "QuestionType": "Direct",
+    "Level": "1"
+  },
+  {
+    "Passage": "The moon is Earth's only natural satellite. It is the fifth largest satellite in the Solar System. The average distance from Earth to the Moon is 384,400 kilometers.",
+    "Question": "How far is the Moon from Earth (average distance)?",
+    "OptionA": "38,440 km",
+    "OptionB": "384,400 km",
+    "OptionC": "3,844,000 km",
+    "OptionD": "384 km",
+    "CorrectAnswer": "B",
+    "QuestionType": "Direct",
+    "Level": "2"
+  },
+  {
+    "Passage": "Photosynthesis is a process used by plants and other organisms to convert light energy into chemical energy that, through cellular respiration, can later be released to fuel the organism's metabolic activities. This chemical energy is stored in carbohydrate molecules, such as sugars, which are synthesized from carbon dioxide and water.",
+    "Question": "What is the primary product of photosynthesis?",
+    "OptionA": "Oxygen",
+    "OptionB": "Carbon Dioxide",
+    "OptionC": "Sugars",
+    "OptionD": "Water",
+    "CorrectAnswer": "C",
+    "QuestionType": "Big Ideas",
+    "Level": "2"
+  }
+]
