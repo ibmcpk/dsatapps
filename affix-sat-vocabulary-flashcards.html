@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SAT Affix Matcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
+    <style>
+        /* Base styles */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-smoothing: grayscale;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Specific styles for the matching game */
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns for affixes and meanings */
+            gap: 0.75rem; /* gap-3 */
+            width: 100%;
+        }
+
+        .affix-list, .meaning-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem; /* gap-3 */
+        }
+        
+        /* Added minimum height to drag area to prevent collapse and boundary confusion */
+        #affix-drag-area {
+            min-height: 120px; /* Ensure space for two items and movement */
+        }
+
+        .affix-pill {
+            /* Styles for draggable items (Affixes) */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem 0.75rem; 
+            font-size: 1rem;
+            min-height: 40px; 
+            border-radius: 9999px; /* rounded-full */
+            font-weight: 700;
+            cursor: grab;
+            touch-action: none; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+        }
+
+        .affix-pill:active {
+            cursor: grabbing;
+            transform: scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .meaning-zone {
+            /* Styles for drop targets (Meanings) */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.75rem;
+            border: 2px dashed; /* Border color will be set dynamically */
+            border-radius: 0.75rem; 
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            min-height: 56px;
+            box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            position: relative; 
+            transition: all 0.2s ease-in-out;
+            /* Ensures meaning text is always visible and the container handles children correctly */
+            flex-wrap: wrap; 
+        }
+
+        .meaning-text {
+            font-weight: 600; /* Make definition stand out */
+            /* Ensure the text can be correctly re-ordered */
+            order: 2; 
+        }
+        
+        /* Card container */
+        .flashcard-container {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .card-face {
+            width: 100%;
+            height: 100%;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+            display: flex; 
+            flex-direction: column;
+        }
+
+        /* Styling for the highlighted word in examples */
+        .highlight-word {
+            font-weight: 700;
+            color: #10b981; /* Tailwind green-500 */
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 640px) {
+            .flashcard-container { max-width: 95%; }
+            .affix-pill { font-size: 0.9rem; padding: 0.4rem 0.6rem; min-height: 36px; }
+            .meaning-zone { font-size: 0.9rem; padding: 0.6rem; }
+            .card-face { padding: 0.75rem; }
+            .match-grid { gap: 0.5rem; }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Define custom color palettes for dynamic use
+                        'custom-indigo-700': '#4338ca',
+                        'custom-teal-700': '#0f766e',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 pb-16 font-sans flex flex-col justify-between">
+
+    <div class="max-w-3xl mx-auto mb-6 w-full">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-2 text-center">SAT Affix Matcher</h1>
+        <p id="card-count" class="text-lg font-semibold text-center text-indigo-600 mb-4">Card 1 of 14 (Matching Mode)</p>
+        
+        <div class="flex flex-wrap justify-center gap-3">
+            <button id="shuffle-btn" class="card-button px-5 py-2 bg-indigo-500 text-white font-bold rounded-full shadow-lg hover:bg-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-300 flex items-center text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM7 12a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clip-rule="evenodd" />
+                    <path d="M11.89 17.15c.67.66 1.83.19 1.83-.71v-2.11a.5.5 0 00-.7-.47l-1.42.71c-.74.37-1.6.09-2.02-.63a.5.5 0 00-.91.46c.71 1.25 1.94 1.54 2.87.97l1.05-.53.18.18.59.59c.27.27.64.25.9-.02a.6.6 0 000-.85l-.55-.55-.17-.18.73-.37c.72.36 1.48.24 2.05-.33.58-.57.7-1.33.34-2.05l-.37-.73.18-.18.55-.55c.27-.27.29-.64.02-.9a.6.6 0 00-.85 0l-.59.59-.18-.17.71 1.42c.72 1.25.44 2.48-.63 3.19a.5.5 0 00-.46.91c.71.42 1.58.14 2.02-.63l-.71 1.42a.5.5 0 00-.91.46c.42-.72.14-1.58-.63-2.02l-1.42.71c-1.25.71-1.54 1.94-.97 2.87z" />
+                </svg>
+                Shuffle
+            </button>
+            <button id="reset-card-btn" class="card-button px-5 py-2 bg-gray-300 text-gray-700 font-bold rounded-full shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-4 focus:ring-gray-300 flex items-center text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.102a2.75 2.75 0 01-.843 1.895L2.1 10l2.057 3.003c.338.494.81.996 1.455 1.437A6.75 6.75 0 0010 18a6.75 6.75 0 005.187-2.464c.645-.441 1.117-.943 1.455-1.437L17.9 10l-2.057-3.003a2.75 2.75 0 01-.843-1.895V3a1 1 0 112 0v2.102A4.75 4.75 0 0014.288 8.16l2.365 3.468a1.5 1.5 0 01-.132 2.08l-.75.75c-.753.753-1.847 1.171-2.99 1.171A8.25 8.25 0 015.42 15.657l-.546-.385a1.5 1.5 0 01-.39-2.118l2.365-3.468A4.75 4.75 0 005 5.102V3a1 1 0 011-1zM5.5 7h4a1 1 0 010 2h-4a1 1 0 010-2z" clip-rule="evenodd" />
+                </svg>
+                Reset
+            </button>
+        </div>
+    </div>
+    
+    <div class="flashcard-container flex-grow flex items-center justify-center">
+        <div id="flashcard" class="flashcard card-face bg-white rounded-3xl shadow-xl p-4">
+            
+            <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">Match the Affix to its Meaning</h2>
+            <p class="text-sm font-medium text-gray-500 mb-4 text-center">Drag the prefix to its meaning</p>
+            
+            <div class="match-grid flex-grow" id="match-area">
+                <div class="flex flex-col justify-start h-full">
+                    <p class="text-lg font-semibold text-gray-600 mb-2">Affixes (Draggable)</p>
+                    <div id="affix-drag-area" class="affix-list flex-grow"></div>
+                </div>
+                <div class="flex flex-col justify-start h-full">
+                    <p class="text-lg font-semibold text-gray-600 mb-2">Meanings (Drop Targets)</p>
+                    <div id="meaning-drop-area" class="meaning-list flex-grow"></div>
+                </div>
+            </div>
+
+            <div id="example-context-area" class="mt-6 pt-4 border-t border-gray-200">
+                <h3 class="text-lg font-bold text-gray-700 mb-3 text-left">Example Context</h3>
+                <div id="example-list" class="flex flex-col space-y-2 text-sm text-gray-600">
+                    </div>
+            </div>
+
+            <div class="pt-4 flex flex-col items-center">
+                <button id="check-btn" class="px-6 py-3 text-white font-bold rounded-full shadow-xl transition duration-150 active:shadow-md mb-2">Check Answer</button>
+                <p id="quiz-feedback" class="mt-2 text-xl font-bold h-8 text-center"></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="max-w-3xl mx-auto mt-6 flex justify-center space-x-4 w-full">
+        <button id="prev-btn" class="card-button px-5 py-2 bg-gray-200 text-gray-700 font-bold rounded-full shadow-md hover:bg-gray-300 focus:outline-none flex items-center text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Previous
+        </button>
+        <button id="next-btn" class="card-button px-5 py-2 bg-gray-200 text-gray-700 font-bold rounded-full shadow-md hover:bg-gray-300 focus:outline-none flex items-center text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+        </button>
+    </div>
+
+    <footer class="mt-auto pt-6 text-center text-gray-500 text-sm">
+        IBMC.pk
+    </footer>
+
+    <script>
+        // --- Data Structure (with updated meanings and examples) ---
+        let cards = [
+            { id: 'c1', type: 'Opposite Prefixes', affixes: [{id: 'c1a1', text: 'un-'}, {id: 'c1a2', text: 'en-'}], 
+                meanings: [
+                    {id: 'c1m1', text: 'not'}, 
+                    {id: 'c1m2', text: 'cause to'}
+                ], 
+                sentences: [
+                    'It was **un**wise to travel during the storm; the roads were dangerous and flooding.',
+                    'The coach\'s rousing speech will **en**able the team to perform better in the second half.'
+                ],
+                correctPairing: ['c1a1:c1m1', 'c1a2:c1m2'] 
+            },
+            { id: 'c2', type: 'Opposite Prefixes', affixes: [{id: 'c2a1', text: 'dis-'}, {id: 'c2a2', text: 'em-'}], 
+                meanings: [
+                    {id: 'c2m1', text: 'not/opposite'}, 
+                    {id: 'c2m2', text: 'cause to'}
+                ], 
+                sentences: [
+                    'She felt **dis**comfort when the room got hot and the fan broke down.',
+                    'The leader sought to **em**bolden the citizens by standing firm against the threat.'
+                ], 
+                correctPairing: ['c2a1:c2m1', 'c2a2:c2m2'] 
+            },
+            { id: 'c3', type: 'Opposite Prefixes', affixes: [{id: 'c3a1', text: 'sub-'}, {id: 'c3a2', text: 'super-'}], 
+                meanings: [
+                    {id: 'c3m1', text: 'under/below'}, 
+                    {id: 'c3m2', text: 'above/over'}
+                ], 
+                sentences: [
+                    'The submarine travels **sub**merged beneath the ocean\'s surface, hidden from sight.',
+                    'His **super**natural strength allowed him to lift the massive stone with ease.'
+                ], 
+                correctPairing: ['c3a1:c3m1', 'c3a2:c3m2'] 
+            },
+            { id: 'c4', type: 'Opposite Prefixes', affixes: [{id: 'c4a1', text: 'over-'}, {id: 'c4a2', text: 'under-'}], 
+                meanings: [
+                    {id: 'c4m1', text: 'too much'}, 
+                    {id: 'c4m2', text: 'too little'}
+                ], 
+                sentences: [
+                    'The students **over**reacted to the small pop quiz by running out of the room in panic.',
+                    'Do not **under**estimate the power of practice; it is essential for success.'
+                ], 
+                correctPairing: ['c4a1:c4m1', 'c4a2:c4m2'] 
+            },
+            { id: 'c5', type: 'Opposite Prefixes', affixes: [{id: 'c5a1', text: 'pre-'}, {id: 'c5a2', text: 're-'}], 
+                meanings: [
+                    {id: 'c5m1', text: 'before (time/rank)'}, 
+                    {id: 'c5m2', text: 'again/back'}
+                ], 
+                sentences: [
+                    'She paid her **pre**mium **before** the start of the insurance term to ensure coverage.',
+                    'The library asked him to **re**turn the book to the shelf when he was finished reading.'
+                ], 
+                correctPairing: ['c5a1:c5m1', 'c5a2:c5m2'] 
+            },
+            
+            // --- UPDATED SIMILAR AFFIXES ---
+            { id: 'c6', type: 'Similar Prefixes', affixes: [{id: 'c6a1', text: 'im-'}, {id: 'c6a2', text: 'ir-'}], 
+                meanings: [
+                    {id: 'c6m1', text: 'not (before m, p)'}, 
+                    {id: 'c6m2', text: 'not (before r)'}
+                ], 
+                sentences: [
+                    'The security breach made their system **im**penetrable to outside attackers.',
+                    'The mistake was **ir**reversible once the legal documents were signed and finalized.'
+                ], 
+                correctPairing: ['c6a1:c6m1', 'c6a2:c6m2'] 
+            },
+            { id: 'c7', type: 'Similar Prefixes', affixes: [{id: 'c7a1', text: 'non-'}, {id: 'c7a2', text: 'un-'}], 
+                meanings: [
+                    {id: 'c7m1', text: 'lack of (neutral)'}, 
+                    {id: 'c7m2', text: 'reverse/opposite (usually negative)'}
+                ], 
+                sentences: [
+                    'She submitted the **non**profit application for the charity to the state board.',
+                    'The door was **un**locked when I got home, which was a surprise since I had locked it.'
+                ], 
+                correctPairing: ['c7a1:c7m1', 'c7a2:c7m2'] 
+            },
+            { id: 'c8', type: 'Similar Prefixes', affixes: [{id: 'c8a1', text: 'anti-'}, {id: 'c8a2', text: 'counter-'}], 
+                meanings: [
+                    {id: 'c8m1', text: 'against/opposing (attitude)'}, 
+                    {id: 'c8m2', text: 'in opposition (action)'}
+                ], 
+                sentences: [
+                    'The group held an **anti**war protest outside the government building.',
+                    'The store installed a **counter**measure to stop shoplifting and theft.'
+                ], 
+                correctPairing: ['c8a1:c8m1', 'c8a2:c8m2'] 
+            },
+            // --- UPDATED SUFFIXES ---
+            { id: 'c9', type: 'Opposite Suffixes', affixes: [{id: 'c9a1', text: '-ful'}, {id: 'c9a2', text: '-less'}], 
+                meanings: [
+                    {id: 'c9m1', text: 'full of/having'}, 
+                    {id: 'c9m2', text: 'without/lacking'}
+                ], 
+                sentences: [
+                    'The scene was **awe**ful and amazing, filled with dramatic natural beauty.',
+                    'His arguments were **base**less and lacked any supporting evidence.'
+                ], 
+                correctPairing: ['c9a1:c9m1', 'c9a2:c9m2'] 
+            },
+            { id: 'c10', type: 'Opposite Suffixes', affixes: [{id: 'c10a1', text: '-er'}, {id: 'c10a2', text: '-est'}], 
+                meanings: [
+                    {id: 'c10m1', text: 'more (comparative)'}, 
+                    {id: 'c10m2', text: 'most (superlative)'}
+                ], 
+                sentences: [
+                    'The new skyscraper is **tall**er than any other building in the downtown area.',
+                    'It was the **high**est score the team had ever made in the championship game.'
+                ], 
+                correctPairing: ['c10a1:c10m1', 'c10a2:c10m2'] 
+            },
+            
+            { id: 'c11', type: 'Similar Suffixes', affixes: [{id: 'c11a1', text: '-able'}, {id: 'c11a2', text: '-ible'}], 
+                meanings: [
+                    {id: 'c11m1', text: 'can be done (Latin/Anglo-French)'}, 
+                    {id: 'c11m2', text: 'can be done (Latin -ibilis roots)'}
+                ], 
+                sentences: [
+                    'The instructions were **read**able and easy to follow, making the assembly simple.',
+                    'The story was **cred**ible despite its bizarre details, earning the trust of the jury.'
+                ], 
+                correctPairing: ['c11a1:c11m1', 'c11a2:c11m2'] 
+            },
+            { id: 'c12', type: 'Similar Suffixes', affixes: [{id: 'c12a1', text: '-al'}, {id: 'c12a2', text: '-ic'}], 
+                meanings: [
+                    {id: 'c12m1', text: 'related to/characterized by'}, 
+                    {id: 'c12m2', text: 'of or pertaining to'}
+                ], 
+                sentences: [
+                    'The team practiced daily for the **annual** tournament, which takes place every year.',
+                    'The ancient city was surrounded by **cycl**ic walls that formed a circular pattern.'
+                ], 
+                correctPairing: ['c12a1:c12m1', 'c12a2:c12m2'] 
+            },
+            { id: 'c13', type: 'Similar Suffixes', affixes: [{id: 'c13a1', text: '-ness'}, {id: 'c13a2', text: '-ity'}], 
+                meanings: [
+                    {id: 'c13m1', text: 'state/quality (Germanic roots)'}, 
+                    {id: 'c13m2', text: 'state/quality (Latin roots)'}
+                ], 
+                sentences: [
+                    'Her **sad**ness was noticeable, indicated by her slumped posture and quiet mood.',
+                    'The **rapid**ity of the answer surprised everyone in the room.'
+                ], 
+                correctPairing: ['c13a1:c13m1', 'c13a2:c13m2'] 
+            },
+            { id: 'c14', type: 'Similar Suffixes', affixes: [{id: 'c14a1', text: '-ous'}, {id: 'c14a2', text: '-ive'}], 
+                meanings: [
+                    {id: 'c14m1', text: 'full of/having the quality of (adjective)'}, 
+                    {id: 'c14m2', text: 'tending to/performing an action (adjective)'}
+                ], 
+                sentences: [
+                    'The canyon was **peril**ous to cross, and hikers were warned of the dangers.',
+                    'She gave an **inform**ative presentation that taught us many new facts.'
+                ], 
+                correctPairing: ['c14a1:c14m1', 'c14a2:c14m2'] 
+            },
+        ];
+        
+        // --- Color Scheme Definitions ---
+        const COLOR_SCHEMES = {
+            'Similar': {
+                primary: 'indigo', // Used for main buttons/text
+                primaryColorCode: '600', // for bg-indigo-600
+                cardBorder: 'indigo-400',
+                pillBorder: 'indigo-500',
+                pillText: 'text-custom-indigo-700',
+                zoneBg: 'bg-indigo-100',
+                zoneBorder: 'border-indigo-300',
+                exampleText: 'text-indigo-600',
+            },
+            'Opposite': {
+                primary: 'teal', // Used for main buttons/text
+                primaryColorCode: '600', // for bg-teal-600
+                cardBorder: 'teal-400',
+                pillBorder: 'teal-500',
+                pillText: 'text-custom-teal-700',
+                zoneBg: 'bg-teal-100',
+                zoneBorder: 'border-teal-300',
+                exampleText: 'text-teal-600',
+            }
+        };
+
+        let currentIndex = 0;
+        let drake; // Dragula instance
+        
+        // DOM elements
+        const cardCountEl = document.getElementById('card-count');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const shuffleBtn = document.getElementById('shuffle-btn');
+        const resetCardBtn = document.getElementById('reset-card-btn');
+        const affixDragArea = document.getElementById('affix-drag-area');
+        const meaningDropArea = document.getElementById('meaning-drop-area');
+        const exampleListEl = document.getElementById('example-list');
+        const checkBtn = document.getElementById('check-btn');
+        const quizFeedbackEl = document.getElementById('quiz-feedback');
+        const flashcardEl = document.getElementById('flashcard');
+
+        /**
+         * Cleans up all dynamic classes related to the previous card's color theme.
+         */
+        function cleanUpClasses() {
+            // Clean up card border and check button colors
+            Object.values(COLOR_SCHEMES).forEach(colors => {
+                flashcardEl.classList.remove(`border-${colors.cardBorder}`);
+                checkBtn.classList.remove(`bg-${colors.primary}-${colors.primaryColorCode}`, `hover:bg-${colors.primary}-700`);
+            });
+            // Re-add default border/color for safety
+            flashcardEl.classList.add('border-indigo-400'); 
+            checkBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700'); 
+        }
+        
+        /**
+         * Parses the sentence and highlights the part containing the affix.
+         * The affix is expected to be **preceded** by the root word in bold.
+         */
+        function formatSentenceForHighlight(sentence) {
+            // Find the bolded word (which contains the affix)
+            const match = sentence.match(/\*\*([^\*]+)\*\*/);
+            
+            if (!match) {
+                // If no bolding found, return the sentence as is (or handle as an error)
+                return sentence;
+            }
+
+            const fullWord = match[1]; // The word that was bolded (e.g., "unhappy")
+            const before = sentence.substring(0, match.index);
+            const after = sentence.substring(match.index + match[0].length);
+
+            // Reconstruct the sentence with the highlighted span
+            const highlightHTML = `<span class="highlight-word">${fullWord}</span>`;
+            
+            return `${before}${highlightHTML}${after}`;
+        }
+
+
+        /**
+         * Renders the current card data to the DOM elements, applying dynamic colors.
+         */
+        function renderCard() {
+            const card = cards[currentIndex];
+            if (!card) return;
+
+            // Determine Color Scheme
+            const themeKey = card.type.includes('Opposite') ? 'Opposite' : 'Similar';
+            const colors = COLOR_SCHEMES[themeKey];
+            const primaryBgClass = `bg-${colors.primary}-${colors.primaryColorCode}`;
+
+            cleanUpClasses(); 
+
+            // Apply new color scheme to card and check button
+            flashcardEl.classList.remove('border-indigo-400');
+            flashcardEl.classList.add(`border-${colors.cardBorder}`);
+            
+            checkBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700', 'bg-green-600', 'hover:bg-green-700'); // Clear success colors too
+            checkBtn.classList.add(primaryBgClass, `hover:bg-${colors.primary}-700`);
+
+            // Clear previous content
+            affixDragArea.innerHTML = '';
+            meaningDropArea.innerHTML = '';
+            exampleListEl.innerHTML = ''; 
+            quizFeedbackEl.textContent = '';
+            checkBtn.disabled = false;
+            checkBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            // Shuffle meanings once per card load for a new matching challenge
+            const shuffledMeanings = [...card.meanings].sort(() => Math.random() - 0.5);
+
+            // Populate Affix Drag Area (Source container)
+            card.affixes.forEach(affix => {
+                const affixDiv = document.createElement('div');
+                affixDiv.id = affix.id;
+                // Apply original styles
+                affixDiv.classList.add('affix-pill', 'bg-white', colors.pillText, `border-2`, `border-${colors.pillBorder}`);
+                affixDiv.textContent = affix.text;
+                affixDragArea.appendChild(affixDiv);
+            });
+
+            // Populate Meaning Drop Area (Parent container for drop targets)
+            const dropTargets = [];
+            shuffledMeanings.forEach(meaning => {
+                const meaningDiv = document.createElement('div');
+                meaningDiv.id = meaning.id;
+                
+                // Meaning text element
+                const meaningTextEl = document.createElement('span');
+                meaningTextEl.classList.add('meaning-text');
+                meaningTextEl.textContent = meaning.text;
+
+                // Add default styles
+                meaningDiv.classList.add('meaning-zone', colors.zoneBg, `border-${colors.zoneBorder}`, 'border-dashed', 'flex-col');
+                meaningDiv.appendChild(meaningTextEl);
+                
+                meaningDropArea.appendChild(meaningDiv);
+                dropTargets.push(meaningDiv); 
+            });
+
+            // Populate Examples Context Area (ONLY sentence is shown)
+            // Note: The example sentences array and meaning objects are assumed to align
+            card.sentences.forEach(sentence => {
+                const exampleDiv = document.createElement('p');
+                const formattedSentence = formatSentenceForHighlight(sentence);
+                
+                exampleDiv.innerHTML = formattedSentence; 
+                
+                exampleListEl.appendChild(exampleDiv);
+            });
+
+            // --- DRAGULA INITIALIZATION ---
+            if (drake) {
+                drake.destroy(); // Clear previous instance
+            }
+            
+            const containers = [affixDragArea, ...dropTargets];
+
+            drake = dragula(containers, {
+                accepts: function (el, target, source, sibling) {
+                    // 1. Must be a meaning zone
+                    if (!target.classList.contains('meaning-zone')) {
+                        return target === affixDragArea; // Allow dropping back to source
+                    }
+                    // 2. Must not already contain a pill
+                    return !target.querySelector('.affix-pill');
+                },
+                moves: function (el, source, handle, sibling) {
+                    return el.classList.contains('affix-pill');
+                },
+                copy: false, 
+                removeOnSpill: false, // Ensure items stay in containers
+            });
+            
+            // Helper to clean up a meaning zone's styles
+            function resetMeaningZoneStyles(zone, colors) {
+                // 1. Reset Zone Styles
+                zone.classList.add(colors.zoneBg, `border-${colors.zoneBorder}`, 'border-dashed', 'flex-col', 'items-center', 'justify-center', 'p-3');
+                zone.classList.remove('bg-white', 'border-gray-300', 'border-solid', 'flex-row', 'items-center', 'justify-start', 'gap-2', 'p-2', 'shadow-md', 'bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500', 'bg-yellow-200', 'border-yellow-600');
+                
+                // 2. Ensure Meaning Text is the only child (re-append it to be safe)
+                const meaningTextEl = zone.querySelector('.meaning-text');
+                if (meaningTextEl) {
+                   zone.innerHTML = '';
+                   zone.appendChild(meaningTextEl);
+                }
+            }
+            
+            // --- FIXED DRAGULA EVENT LOGIC ---
+            drake.on('drop', (el, target, source) => {
+                // Clear any previous check feedback on drop
+                quizFeedbackEl.textContent = '';
+                meaningDropArea.querySelectorAll('.meaning-zone').forEach(zone => {
+                    zone.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500', 'bg-yellow-200', 'border-yellow-600');
+                });
+                affixDragArea.querySelectorAll('.affix-pill').forEach(pill => {
+                    pill.classList.remove('bg-green-600', 'bg-red-600', 'shadow-lg');
+                });
+
+                const currentCard = cards[currentIndex];
+                const themeColors = COLOR_SCHEMES[currentCard.type.includes('Opposite') ? 'Opposite' : 'Similar'];
+                const primaryBgClass = `bg-${themeColors.primary}-${themeColors.primaryColorCode}`;
+
+                // CASE 1: Dropped into a MEANING ZONE (target is a meaning zone)
+                if (target.classList.contains('meaning-zone')) {
+                    
+                    // 1. Apply drop zone match styles
+                    target.classList.remove(themeColors.zoneBg, `border-${themeColors.zoneBorder}`, 'border-dashed', 'flex-col', 'items-center', 'justify-center', 'p-3');
+                    target.classList.add('bg-white', 'border-gray-300', 'border-solid', 'flex-row', 'items-center', 'justify-start', 'gap-2', 'p-2', 'shadow-md');
+
+                    // 2. Restyle the dropped pill
+                    el.classList.remove('bg-white', themeColors.pillText, `border-2`, `border-${themeColors.pillBorder}`);
+                    el.classList.add(primaryBgClass, 'text-white', 'px-3', 'py-1', 'text-sm', 'font-semibold', 'rounded-lg'); 
+                    el.style.minHeight = 'auto'; 
+
+                    // 3. Ensure the pill is the first child (order 1) and text is second (order 2)
+                    target.prepend(el);
+                    
+                    // 4. If it was dragged from another meaning zone, reset the source zone
+                    if (source.classList.contains('meaning-zone') && source !== target) {
+                        resetMeaningZoneStyles(source, themeColors);
+                    }
+                } 
+                // CASE 2: Dropped back into the SOURCE AREA (target is affixDragArea)
+                else if (target === affixDragArea) {
+                    // 1. Reset the pill's style back to original
+                    el.classList.remove(primaryBgClass, 'text-white', 'px-3', 'py-1', 'text-sm', 'font-semibold', 'rounded-lg', 'shadow-none', 'bg-green-600', 'bg-red-600');
+                    el.classList.add('affix-pill', 'bg-white', themeColors.pillText, `border-2`, `border-${themeColors.pillBorder}`);
+                    el.style.minHeight = '40px'; 
+
+                    // 2. CRITICAL: Reset the source zone's styles if it was a meaning zone
+                    if (source.classList.contains('meaning-zone')) {
+                        resetMeaningZoneStyles(source, themeColors);
+                    }
+                }
+            });
+            
+            // Update Status and Navigation
+            cardCountEl.textContent = `Card ${currentIndex + 1} of ${cards.length} (${card.type} Match)`;
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === cards.length - 1;
+        }
+
+        /**
+         * Resets the current card to its initial state, clearing all drags.
+         */
+        function resetCard() {
+            renderCard(); // Simply re-render the card
+        }
+
+        /**
+         * Moves to the next card.
+         */
+        function nextCard() {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                renderCard();
+            }
+        }
+
+        /**
+         * Moves to the previous card.
+         */
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        /**
+         * Shuffles the cards array (Fisher-Yates algorithm).
+         */
+        function shuffleCards() {
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            currentIndex = 0;
+            renderCard();
+        }
+        
+        /**
+         * Checks the user's answers in Matching Quiz Mode.
+         */
+        function checkAnswer() {
+            const card = cards[currentIndex];
+            let correctMatches = 0;
+            const totalAffixes = card.affixes.length;
+            let currentMatches = 0; 
+            const colors = COLOR_SCHEMES[card.type.includes('Opposite') ? 'Opposite' : 'Similar'];
+            const primaryBgClass = `bg-${colors.primary}-${colors.primaryColorCode}`;
+
+            quizFeedbackEl.textContent = ''; // Clear previous feedback
+
+            // Reset check button styles to theme color initially
+            checkBtn.classList.add(primaryBgClass, `hover:bg-${colors.primary}-700`);
+            checkBtn.classList.remove('bg-green-600', 'hover:bg-green-700', 'bg-red-600', 'hover:bg-red-700');
+
+
+            // Check each meaning zone
+            meaningDropArea.querySelectorAll('.meaning-zone').forEach(meaningZone => {
+                const meaningId = meaningZone.id;
+                // FIX: Look for the placed affix element inside the zone
+                const droppedAffixElement = meaningZone.querySelector('.affix-pill');
+                
+                // 1. Clear all previous feedback styling
+                meaningZone.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500', 'bg-yellow-200', 'border-yellow-600');
+                
+                // 2. Process placement
+                if (droppedAffixElement) {
+                    currentMatches++; 
+                    
+                    const droppedAffixId = droppedAffixElement.id;
+
+                    // Clear all conflicting affix colors BEFORE applying new feedback color
+                    droppedAffixElement.classList.remove(primaryBgClass, 'bg-green-600', 'bg-red-600', 'shadow-lg'); 
+
+                    const pairing = `${droppedAffixId}:${meaningId}`;
+
+                    if (card.correctPairing.includes(pairing)) {
+                        correctMatches++;
+                        // Correct Feedback (Green)
+                        meaningZone.classList.add('bg-green-100', 'border-green-500');
+                        droppedAffixElement.classList.add('bg-green-600', 'text-white', 'shadow-lg');
+                    } else {
+                        // Incorrect Feedback (Red)
+                        meaningZone.classList.add('bg-red-100', 'border-red-500');
+                        droppedAffixElement.classList.add('bg-red-600', 'text-white', 'shadow-lg');
+                    }
+                } else {
+                    // No affix dropped in this zone - Mark as missing (Yellow)
+                    meaningZone.classList.add('bg-yellow-200', 'border-yellow-600');
+                }
+            });
+
+            // --- FINAL FEEDBACK ---
+            if (currentMatches !== totalAffixes) {
+                 quizFeedbackEl.className = 'mt-2 text-xl font-bold h-8 text-yellow-600';
+                 quizFeedbackEl.textContent = 'Not all affixes placed. Check yellow slots! ⚠️';
+            } else if (correctMatches === totalAffixes) {
+                quizFeedbackEl.className = 'mt-2 text-xl font-bold h-8 text-green-600';
+                quizFeedbackEl.textContent = 'Excellent! All correct! 🎉';
+                checkBtn.classList.remove(primaryBgClass, `hover:bg-${colors.primary}-700`);
+                checkBtn.classList.add('bg-green-600', 'hover:bg-green-700', 'cursor-not-allowed');
+                checkBtn.disabled = true;
+                drake.destroy(); // Prevent further dragging
+            } else if (correctMatches > 0) {
+                quizFeedbackEl.className = 'mt-2 text-xl font-bold h-8 text-red-600';
+                quizFeedbackEl.textContent = `Partially correct! ${correctMatches}/${totalAffixes} matches. 🤔`;
+            } else {
+                quizFeedbackEl.className = 'mt-2 text-xl font-bold h-8 text-red-600';
+                quizFeedbackEl.textContent = 'No correct matches. Keep trying! 😬';
+            }
+        }
+
+        // Event Listeners
+        nextBtn.addEventListener('click', nextCard);
+        prevBtn.addEventListener('click', prevCard);
+        shuffleBtn.addEventListener('click', shuffleCards);
+        resetCardBtn.addEventListener('click', resetCard);
+        checkBtn.addEventListener('click', checkAnswer);
+
+        // Initial render
+        window.onload = renderCard;
+
+    </script>
+</body>
+</html>
