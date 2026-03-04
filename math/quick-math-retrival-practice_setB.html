@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYP 5 Math Mixed Practice - Final Set</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --dark-blue: #002d5b;
+            --success-green: #28a745;
+            --bg-color: #f4f7f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .progress {
+            font-size: 1rem;
+            margin: 15px 0;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .card-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            height: 75vh; 
+            max-height: 500px;
+            min-height: 380px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            background: white;
+            border: 2px solid var(--primary-blue);
+            overflow-y: auto; 
+        }
+
+        .card-face-front {
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            text-align: center;
+        }
+
+        .card-face-back {
+            background: #ffffff;
+            transform: rotateY(180deg);
+            font-size: 1rem;
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .answer-heading {
+            color: var(--success-green);
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            width: 100%;
+        }
+
+        .steps {
+            color: #333;
+            line-height: 1.5;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            width: 100%;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: var(--primary-blue);
+            color: white;
+            font-weight: 600;
+            transition: background 0.2s;
+            touch-action: manipulation;
+        }
+
+        .shuffle-btn {
+            grid-column: span 2;
+            background-color: #6c757d;
+        }
+
+        button:active {
+            filter: brightness(0.8);
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .instruction {
+            margin: 15px 0;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        @media (min-width: 600px) {
+            .card-face-front { font-size: 1.5rem; }
+            .card-face-back { font-size: 1.1rem; }
+            .controls { grid-template-columns: 1fr 1.5fr 1fr; }
+            .shuffle-btn { grid-column: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="progress" id="progressText">Question 1 of 30</div>
+    
+    <div class="card-wrapper" onclick="flipCard()">
+        <div class="card" id="card">
+            <div class="card-face card-face-front" id="frontText">
+                </div>
+            <div class="card-face card-face-back" id="backText">
+                </div>
+        </div>
+    </div>
+
+    <div class="instruction">Tap card to see the answer and steps.</div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="event.stopPropagation(); prevCard()">Prev</button>
+        <button id="nextBtn" onclick="event.stopPropagation(); nextCard()">Next</button>
+        <button class="shuffle-btn" onclick="event.stopPropagation(); shuffleCards()">Shuffle Deck</button>
+    </div>
+</div>
+
+<script>
+    const flashcards = [
+        { q: "Define the intersection of sets \\(A\\) and \\(B\\) (\\(A \\cap B\\)).", a: "<div class='answer-heading'>Elements in BOTH A and B</div><div class='steps'><b>Explanation:</b><br>The intersection represents the region where two sets overlap in a Venn diagram. It only includes members that are common to both sets.</div>" },
+        { q: "Simplify \\(\\sqrt{50}\\) into simplest surd form.", a: "<div class='answer-heading'>\\(5\\sqrt{2}\\)</div><div class='steps'><b>Steps:</b><br>1. Find the largest square factor of 50: 25.<br>2. Rewrite: \\(\\sqrt{25 \\times 2}\\).<br>3. Simplify: \\(5\\sqrt{2}\\).</div>" },
+        { q: "Find the value of \\(\\sqrt{7} \\times \\sqrt{7}\\).", a: "<div class='answer-heading'>\\(7\\)</div><div class='steps'><b>Steps:</b><br>1. Multiply the numbers under the radical: \\(\\sqrt{49}\\).<br>2. Square root of 49 is 7.</div>" },
+        { q: "Solve the power equation: \\(x^{2} = 49\\).", a: "<div class='answer-heading'>\\(x = 7\\) or \\(x = -7\\)</div><div class='steps'><b>Steps:</b><br>1. Take the square root of both sides.<br>2. Remember that both positive and negative numbers squared result in a positive.</div>" },
+        { q: "State the relationship between a tangent and the radius at the point of contact.", a: "<div class='answer-heading'>Perpendicular (90&deg;)</div><div class='steps'><b>Theorem:</b><br>A tangent to a circle is perpendicular to the radius drawn to the point of tangency.</div>" },
+        { q: "Calculate the Opposite side if Hypotenuse = 10 and Angle = 30&deg;. (\\(\\sin 30^\\circ = 0.5\\))", a: "<div class='answer-heading'>5 cm</div><div class='steps'><b>Steps:</b><br>1. \\(\\sin(\\theta) = \\frac{Opp}{Hyp}\\).<br>2. \\(0.5 = \\frac{Opp}{10}\\).<br>3. \\(Opp = 0.5 \\times 10 = 5\\).</div>" },
+        { q: "Identify if this is a function: \\(\\{(1, 2), (1, 3), (2, 4)\\}\\).", a: "<div class='answer-heading'>Relation (Not a function)</div><div class='steps'><b>Reason:</b><br>For an input of 1, there are two different outputs (2 and 3). A function must have exactly one output per input.</div>" },
+        { q: "Find the domain of \\(\\{(0, 5), (2, 10), (4, 15)\\}\\).", a: "<div class='answer-heading'>\\(\\{0, 2, 4\\}\\)</div><div class='steps'><b>Steps:</b><br>The domain is the set of all first coordinates (input values).</div>" },
+        { q: "Factorise \\(x^{2} - 6x + 9\\) into a perfect square.", a: "<div class='answer-heading'>\\((x - 3)^{2}\\)</div><div class='steps'><b>Steps:</b><br>1. \\(a^2 - 2ab + b^2 = (a-b)^2\\).<br>2. \\(a=x, b=3\\). Check middle: \\(2(x)(3) = 6x\\). Correct.</div>" },
+        { q: "Find the \\(x\\)-intercept of \\(2x + 4y = 8\\).", a: "<div class='answer-heading'>\\(x = 4\\)</div><div class='steps'><b>Steps:</b><br>1. Set \\(y = 0\\).<br>2. \\(2x + 4(0) = 8\\).<br>3. \\(2x = 8 \\Rightarrow x = 4\\).</div>" },
+        { q: "Define the 'Union' of sets \\(A\\) and \\(B\\) (\\(A \\cup B\\)).", a: "<div class='answer-heading'>Elements in A OR B (or both)</div><div class='steps'><b>Explanation:</b><br>The union combines all members of both sets. In a Venn diagram, it is everything inside both circles combined.</div>" },
+        { q: "Calculate the mean of: \\(4, 7, 7, 10\\).", a: "<div class='answer-heading'>7</div><div class='steps'><b>Steps:</b><br>1. Sum: \\(4+7+7+10 = 28\\).<br>2. Count: 4 numbers.<br>3. Mean: \\(28 / 4 = 7\\).</div>" },
+        { q: "What does it mean if two sets are 'disjoint'?", a: "<div class='answer-heading'>No common elements</div><div class='steps'><b>Explanation:</b><br>Their intersection is the empty set (\\(\\emptyset\\)). In a Venn diagram, the circles do not touch.</div>" },
+        { q: "Simplify: \\(3\\sqrt{2} + 5\\sqrt{2}\\).", a: "<div class='answer-heading'>\\(8\\sqrt{2}\\)</div><div class='steps'><b>Steps:</b><br>Treat surds like algebraic like-terms: \\(3a + 5a = 8a\\).</div>" },
+        { q: "**Solve for \\(x\\): \\(3(x - 4) = 15\\).**", a: "<div class='answer-heading'>\\(x = 9\\)</div><div class='steps'><b>Steps:</b><br>1. Expand: \\(3x - 12 = 15\\).<br>2. Add 12: \\(3x = 27\\).<br>3. Divide by 3: \\(x = 9\\).</div>" },
+        { q: "Two similar triangles have sides 4 cm and 12 cm. Find the scale factor \\(k\\).", a: "<div class='answer-heading'>\\(k = 3\\)</div><div class='steps'><b>Steps:</b><br>1. \\(k = \\text{New} / \\text{Old}\\).<br>2. \\(k = 12 / 4 = 3\\).</div>" },
+        { q: "State the Sine Rule formula for a non-right angled triangle.", a: "<div class='answer-heading'>\\(\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}\\)</div><div class='steps'><b>Explanation:</b><br>Used to find unknown sides or angles when you have pairs of opposite sides and angles.</div>" },
+        { q: "Identify the vertex of \\(y = (x - 2)^{2} + 5\\).", a: "<div class='answer-heading'>\\((2, 5)\\)</div><div class='steps'><b>Steps:</b><br>1. Form is \\(y = a(x-h)^2 + k\\).<br>2. Vertex is \\((h, k)\\). Note the sign change for \\(h\\).</div>" },
+        { q: "**On a cumulative frequency graph, how do you find the median?**", a: "<div class='answer-heading'>Read across from 50% of the total frequency</div><div class='steps'><b>Steps:</b><br>1. Find half of the total frequency (N/2) on the y-axis.<br>2. Read across to the curve, then down to the x-axis to find the value.</div>" },
+        { q: "State the Tan ratio formula.", a: "<div class='answer-heading'>\\(\\text{Tan}(\\theta) = \\frac{\\text{Opposite}}{\\text{Adjacent}}\\).</div><div class='steps'><b>Mnemonic:</b><br>TOA (Tangent, Opposite, Adjacent).</div>" },
+        { q: "Find the median of: \\(2, 5, 8, 10, 12\\).", a: "<div class='answer-heading'>8</div><div class='steps'><b>Steps:</b><br>1. Data is already ordered.<br>2. The middle value of the 5 numbers is the 3rd term.</div>" },
+        { q: "Rationalise the denominator: \\(\\frac{3}{\\sqrt{2}}\\).", a: "<div class='answer-heading'>\\(\\frac{3\\sqrt{2}}{2}\\)</div><div class='steps'><b>Steps:</b><br>1. Multiply top and bottom by \\(\\sqrt{2}\\).<br>2. \\(\\frac{3 \\times \\sqrt{2}}{\\sqrt{2} \\times \\sqrt{2}} = \\frac{3\\sqrt{2}}{2}\\).</div>" },
+        { q: "Find the \\(y\\)-intercept of \\(y = x^{2} + 3x - 10\\).", a: "<div class='answer-heading'>-10</div><div class='steps'><b>Steps:</b><br>1. Set \\(x = 0\\).<br>2. \\(0^2 + 3(0) - 10 = -10\\).</div>" },
+        { 
+    q: "Two similar shapes have a length scale factor of \\(k = 3\\). If the smaller area is \\(5\\text{ cm}^2\\), find the larger area.", 
+    a: "<div class='answer-heading'>\\(45\\text{ cm}^2\\)</div><div class='steps'><b>Steps:</b><br>1. The area scale factor is \\(k^2\\).<br>2. \\(k^2 = 3^2 = 9\\).<br>3. \\(\\text{Area} = 5 \\times 9 = 45\\).</div>" 
+},
+        { q: "Define an 'outlier' in statistics.", a: "<div class='answer-heading'>An extreme data point</div><div class='steps'><b>Explanation:</b><br>A value that is significantly higher or lower than the rest of the data set.</div>" },
+        { q: "Solve \\(2x - 5 > 7\\).", a: "<div class='answer-heading'>\\(x > 6\\)</div><div class='steps'><b>Steps:</b><br>1. Add 5: \\(2x > 12\\).<br>2. Divide by 2: \\(x > 6\\).</div>" },
+        { q: "If \\(U = \\{1, 2, 3, 4, 5\\}\\) and \\(A = \\{1, 2\\}\\), find \\(A'\\).", a: "<div class='answer-heading'>\\(\\{3, 4, 5\\}\\)</div><div class='steps'><b>Steps:</b><br>\\(A'\\) (Complement) is everything in the Universal set NOT in set A.</div>" },
+        { q: "Tree shadow is 10m, Angle of elevation is 45&deg;. Find height (\\(\\tan 45^\\circ = 1\\)).", a: "<div class='answer-heading'>10m</div><div class='steps'><b>Steps:</b><br>1. \\(\\tan 45 = \\frac{Height}{10}\\).<br>2. \\(1 = \\frac{Height}{10} \\Rightarrow Height = 10\\).</div>" },
+        { q: "Simplify the fraction: \\(\\frac{5x^{2}}{10x}\\).", a: "<div class='answer-heading'>\\(\\frac{x}{2}\\)</div><div class='steps'><b>Steps:</b><br>1. \\(5/10 = 1/2\\).<br>2. \\(x^2 / x = x\\). Combine: \\(x/2\\).</div>" },
+        { q: "Describe the transformation \\(y = x^{2}\\) to \\(y = -x^{2}\\).", a: "<div class='answer-heading'>Reflection in x-axis</div><div class='steps'><b>Explanation:</b><br>A negative sign outside the function flips the graph vertically across the horizontal axis.</div>" }
+    ];
+
+    let currentIdx = 0;
+    const cardEl = document.getElementById('card');
+    const frontEl = document.getElementById('frontText');
+    const backEl = document.getElementById('backText');
+    const progressEl = document.getElementById('progressText');
+
+    function updateCard() {
+        cardEl.classList.remove('is-flipped');
+        frontEl.innerHTML = flashcards[currentIdx].q;
+        backEl.innerHTML = flashcards[currentIdx].a;
+        progressEl.innerText = `Question ${currentIdx + 1} of ${flashcards.length}`;
+        MathJax.typesetPromise();
+        document.getElementById('prevBtn').disabled = currentIdx === 0;
+        document.getElementById('nextBtn').disabled = currentIdx === flashcards.length - 1;
+    }
+
+    function flipCard() { cardEl.classList.toggle('is-flipped'); }
+    function nextCard() { if (currentIdx < flashcards.length - 1) { currentIdx++; updateCard(); } }
+    function prevCard() { if (currentIdx > 0) { currentIdx--; updateCard(); } }
+    function shuffleCards() { flashcards.sort(() => Math.random() - 0.5); currentIdx = 0; updateCard(); }
+
+    updateCard();
+</script>
+
+</body>
+</html>
