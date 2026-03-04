@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYP 5 Math Mixed Practice</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --dark-blue: #002d5b;
+            --success-green: #28a745;
+            --bg-color: #f4f7f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .progress {
+            font-size: 1rem;
+            margin: 15px 0;
+            color: #555;
+            font-weight: 600;
+        }
+
+        /* Responsive Card wrapper */
+        .card-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            height: 70vh; /* Dynamic height based on screen height */
+            max-height: 480px;
+            min-height: 350px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            background: white;
+            border: 2px solid var(--primary-blue);
+            overflow-y: auto; /* Allow scrolling for long answers on small screens */
+        }
+
+        .card-face-front {
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            text-align: center;
+        }
+
+        .card-face-back {
+            background: #ffffff;
+            transform: rotateY(180deg);
+            font-size: 1rem;
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .answer-heading {
+            color: var(--success-green);
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            width: 100%;
+        }
+
+        .steps {
+            color: #333;
+            line-height: 1.5;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            width: 100%;
+        }
+
+        /* Mobile-friendly controls */
+        .controls {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: var(--primary-blue);
+            color: white;
+            font-weight: 600;
+            transition: background 0.2s;
+            touch-action: manipulation;
+        }
+
+        .shuffle-btn {
+            grid-column: span 2;
+            background-color: #6c757d;
+        }
+
+        button:active {
+            filter: brightness(0.8);
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .instruction {
+            margin: 15px 0;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* Tablet/Desktop adjustments */
+        @media (min-width: 600px) {
+            .card-face-front { font-size: 1.6rem; }
+            .card-face-back { font-size: 1.1rem; }
+            .controls { grid-template-columns: 1fr 1.5fr 1fr; }
+            .shuffle-btn { grid-column: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="progress" id="progressText">Question 1 of 30</div>
+    
+    <div class="card-wrapper" onclick="flipCard()">
+        <div class="card" id="card">
+            <div class="card-face card-face-front" id="frontText">
+                </div>
+            <div class="card-face card-face-back" id="backText">
+                </div>
+        </div>
+    </div>
+
+    <div class="instruction">Tap the card to see the answer.</div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="event.stopPropagation(); prevCard()">Prev</button>
+        <button id="nextBtn" onclick="event.stopPropagation(); nextCard()">Next</button>
+        <button class="shuffle-btn" onclick="event.stopPropagation(); shuffleCards()">Shuffle Deck</button>
+    </div>
+</div>
+
+<script>
+    const flashcards = [
+        { q: "Write \\(0.000042\\) in standard form.", a: "<div class='answer-heading'>\\(4.2 \\times 10^{-5}\\)</div><div class='steps'><b>Steps:</b><br>1. Decimal moves 5 places right.<br>2. Power is negative for small numbers.</div>" },
+        { q: "Solve \\(5 < 3x - 4 < 17\\). Use interval notation.", a: "<div class='answer-heading'>\\((3, 7)\\)</div><div class='steps'><b>Steps:</b><br>1. Add 4: \\(9 < 3x < 21\\).<br>2. Divide by 3: \\(3 < x < 7\\).</div>" },
+        { q: "Solve \\((x-3)(x+5)=0\\) via Null Factor Law.", a: "<div class='answer-heading'>\\(x = 3, -5\\)</div><div class='steps'><b>Steps:</b><br>1. \\(x-3=0 \\Rightarrow x=3\\).<br>2. \\(x+5=0 \\Rightarrow x=-5\\).</div>" },
+        { q: "Expand and simplify: \\((2x+3)(x-5)\\).", a: "<div class='answer-heading'>\\(2x^{2} - 7x - 15\\)</div><div class='steps'><b>Steps:</b><br>1. FOIL: \\(2x^2 - 10x + 3x - 15\\).<br>2. Simplify: \\(-10x + 3x = -7x\\).</div>" },
+        { q: "Factorise \\(x^{2} - 9\\) completely.", a: "<div class='answer-heading'>\\((x-3)(x+3)\\)</div><div class='steps'><b>Steps:</b><br>1. Diff of Squares: \\(a^2 - b^2 = (a-b)(a+b)\\).</div>" },
+        { q: "State the formula for the Volume of a Cylinder.", a: "<div class='answer-heading'>\\(V = \\pi r^{2}h\\)</div><div class='steps'><b>Steps:</b><br>1. Base Area (\\(\\pi r^2\\)) \\(\\times\\) Height (\\(h\\)).</div>" },
+        { q: "Find the midpoint between \\(P(2, -4)\\) and \\(Q(6, 10)\\).", a: "<div class='answer-heading'>\\((4, 3)\\)</div><div class='steps'><b>Steps:</b><br>1. x: \\((2+6)/2 = 4\\).<br>2. y: \\((-4+10)/2 = 3\\).</div>" },
+        { q: "If \\(f(x) = 2x^{2} - 3x + 1\\), find \\(f(-2)\\).", a: "<div class='answer-heading'>\\(15\\)</div><div class='steps'><b>Steps:</b><br>1. \\(2(-2)^2 - 3(-2) + 1\\).<br>2. \\(8 + 6 + 1 = 15\\).</div>" },
+        { q: "Simplify: \\(\\frac{x^{2} + 5x + 6}{x + 2}\\).", a: "<div class='answer-heading'>\\(x + 3\\)</div><div class='steps'><b>Steps:</b><br>1. Factorise: \\(\\frac{(x+2)(x+3)}{x+2}\\).<br>2. Cancel \\((x+2)\\).</div>" },
+        { q: "10 marbles: 3 Red, 7 Blue. 2 drawn without replacement. Find P(Both Red).", a: "<div class='answer-heading'>\\(\\frac{1}{15}\\)</div><div class='steps'><b>Steps:</b><br>1. \\(P(R1) = 3/10\\).<br>2. \\(P(R2) = 2/9\\).<br>3. \\(3/10 \\times 2/9 = 6/90 = 1/15\\).</div>" },
+        { q: "Rearrange \\(V = \\frac{1}{3}Ah\\) to make \\(A\\) the subject.", a: "<div class='answer-heading'>\\(A = \\frac{3V}{h}\\)</div><div class='steps'><b>Steps:</b><br>1. Multiply by 3, Divide by h.</div>" },
+        { q: "Line gradient \\(m = 2/3\\). Perpendicular gradient?", a: "<div class='answer-heading'>\\(m = -3/2\\)</div><div class='steps'><b>Steps:</b><br>1. Negative reciprocal: Flip and negate.</div>" },
+        { q: "Right triangle legs: 5 and 12. Find hypotenuse.", a: "<div class='answer-heading'>\\(13\\)</div><div class='steps'><b>Steps:</b><br>1. \\(\\sqrt{5^2 + 12^2} = \\sqrt{169} = 13\\).</div>" },
+        { q: "List 4 tests for triangle congruency.", a: "<div class='answer-heading'>SSS, SAS, ASA, RHS</div><div class='steps'><b>Steps:</b><br>Side-Side-Side, Side-Angle-Side, Angle-Side-Angle, Right-Hypotenuse-Side.</div>" },
+        { q: "Solve \\(y = 2x + 1, 3x + y = 11\\).", a: "<div class='answer-heading'>\\(x=2, y=5\\)</div><div class='steps'><b>Steps:</b><br>1. \\(3x + (2x+1) = 11 \\Rightarrow 5x = 10\\).</div>" },
+        { q: "Seq: 7, 11, 15... Find \\(u_{10}\\).", a: "<div class='answer-heading'>\\(43\\)</div><div class='steps'><b>Steps:</b><br>1. \\(d=4\\).<br>2. \\(u_{10} = 7 + (9 \\times 4) = 43\\).</div>" },
+        { q: "Calculate \\((4 \\times 10^{3}) \\times (2 \\times 10^{5})\\). Standard form.", a: "<div class='answer-heading'>\\(8 \\times 10^{8}\\)</div><div class='steps'><b>Steps:</b><br>1. Multiply digits: \\(4 \\times 2 = 8\\).<br>2. Add powers: \\(10^{3+5} = 10^8\\).</div>" },
+        { q: "Find distance between \\(A(1, 2)\\) and \\(B(4, 6)\\).", a: "<div class='answer-heading'>\\(5\\) units</div><div class='steps'><b>Steps:</b><br>1. \\(\\sqrt{(4-1)^2 + (6-2)^2}\\).<br>2. \\(\\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\).</div>" },
+        { q: "Define IQR.", a: "<div class='answer-heading'>\\(Q_{3} - Q_{1}\\)</div><div class='steps'><b>Steps:</b><br>Upper quartile minus lower quartile. Measures spread of middle 50%.</div>" },
+        { q: "Surface area of cube, side 4 cm?", a: "<div class='answer-heading'>\\(96\\text{ cm}^2\\)</div><div class='steps'><b>Steps:</b><br>1. \\(6 \\times \\text{side}^2\\).<br>2. \\(6 \\times 16 = 96\\).</div>" },
+        { q: "Find Volume of triangular prism: Base Area 15, length 10.", a: "<div class='answer-heading'>\\(150\\text{ cm}^3\\)</div><div class='steps'><b>Steps:</b><br>1. \\(V = \\text{Area} \\times \\text{length} = 15 \\times 10\\).</div>" },
+        { q: "Axis of symmetry for \\(y = x^2 - 4x + 5\\)?", a: "<div class='answer-heading'>\\(x = 2\\)</div><div class='steps'><b>Steps:</b><br>1. \\(x = -b/2a = 4/2 = 2\\).</div>" },
+        { q: "Convert \\(0.\\dot{7}\\) to fraction.", a: "<div class='answer-heading'>\\(7/9\\)</div><div class='steps'><b>Steps:</b><br>1. Recurring decimal digit goes over 9.</div>" },
+        { q: "Scale 1:20,000. 5 cm on map in km?", a: "<div class='answer-heading'>\\(1\\text{ km}\\)</div><div class='steps'><b>Steps:</b><br>1. \\(5 \\times 20,000 = 100,000\\text{ cm}\\).<br>2. \\(100,000\\text{ cm} = 1\\text{ km}\\).</div>" },
+        { q: "Transform \\(y=x^2\\) to \\(y=(x-3)^2+2\\).", a: "<div class='answer-heading'>Translation \\(\\binom{3}{2}\\)</div><div class='steps'><b>Steps:</b><br>1. 3 right, 2 up.</div>" },
+        { q: "Solve \\(x^3 = 27\\).", a: "<div class='answer-heading'>\\(x = 3\\)</div><div class='steps'><b>Steps:</b><br>1. Cube root: \\(\\sqrt[3]{27} = 3\\).</div>" },
+        { q: "Coin tossed twice. P(Exactly 1 Head)?", a: "<div class='answer-heading'>\\(0.5\\) (or \\(1/2\\))</div><div class='steps'><b>Steps:</b><br>1. Outcomes: HH, HT, TH, TT.<br>2. HT and TH are exactly one head. (2/4).</div>" },
+        { q: "Factorise \\(3x^2 + 7x + 2\\).", a: "<div class='answer-heading'>\\((3x+1)(x+2)\\)</div><div class='steps'><b>Steps:</b><br>1. Split middle: \\(3x^2 + 6x + x + 2\\).<br>2. Group factor.</div>" },
+        { q: "Regular hexagon interior angle?", a: "<div class='answer-heading'>\\(120^\\circ\\)</div><div class='steps'><b>Steps:</b><br>1. \\(\\text{Sum} = (6-2) \\times 180 = 720\\).<br>2. \\(720 / 6 = 120\\).</div>" },
+        { q: "Domain/Range of \\(\\{(1,2), (3,4), (5,6)\\}\\)?", a: "<div class='answer-heading'>D:{1,3,5}, R:{2,4,6}</div><div class='steps'><b>Steps:</b><br>1. Domain = x values. Range = y values.</div>" }
+    ];
+
+    let currentIdx = 0;
+    const cardEl = document.getElementById('card');
+    const frontEl = document.getElementById('frontText');
+    const backEl = document.getElementById('backText');
+    const progressEl = document.getElementById('progressText');
+
+    function updateCard() {
+        cardEl.classList.remove('is-flipped');
+        frontEl.innerHTML = flashcards[currentIdx].q;
+        backEl.innerHTML = flashcards[currentIdx].a;
+        progressEl.innerText = `Question ${currentIdx + 1} of ${flashcards.length}`;
+        MathJax.typesetPromise();
+        document.getElementById('prevBtn').disabled = currentIdx === 0;
+        document.getElementById('nextBtn').disabled = currentIdx === flashcards.length - 1;
+    }
+
+    function flipCard() { cardEl.classList.toggle('is-flipped'); }
+    function nextCard() { if (currentIdx < flashcards.length - 1) { currentIdx++; updateCard(); } }
+    function prevCard() { if (currentIdx > 0) { currentIdx--; updateCard(); } }
+    function shuffleCards() { flashcards.sort(() => Math.random() - 0.5); currentIdx = 0; updateCard(); }
+
+    updateCard();
+</script>
+
+</body>
+</html>
