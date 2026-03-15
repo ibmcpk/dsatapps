@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Writing Formulae Lab by Mohsin@IBMC.pk</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --text: #f8fafc;
+            --secondary: #fbbf24;
+            --muted: #94a3b8;
+            --border: #334155;
+            --success: #10b981;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg); color: var(--text);
+            scroll-snap-type: y mandatory; overflow-y: scroll;
+        }
+
+        section {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: flex-start; align-items: center;
+            scroll-snap-align: start; padding: 40px 20px;
+            box-sizing: border-box; overflow-y: auto;
+        }
+
+        .container { max-width: 1200px; width: 100%; }
+
+        .header-meta {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 10px;
+        }
+
+        .badge { background: var(--accent); color: var(--bg); padding: 5px 12px; border-radius: 4px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; }
+
+        .grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; }
+
+        .formula-box {
+            background: rgba(251, 191, 36, 0.1); border: 1px solid var(--secondary);
+            padding: 15px; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--secondary); line-height: 1.5;
+        }
+
+        .mentor-text {
+            background: var(--card-bg); padding: 1.5rem; border-radius: 8px;
+            line-height: 1.7; font-style: italic; margin-bottom: 1.5rem; border-left: 4px solid var(--muted); font-size: 0.95rem;
+        }
+
+        .practice-card {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            padding: 1.5rem; border-radius: 8px; position: sticky; top: 0;
+        }
+
+        .prompt-item {
+            display: none; padding: 10px; background: var(--card-bg);
+            margin-bottom: 8px; border-radius: 6px; border-left: 4px solid var(--accent);
+            animation: fadeIn 0.4s forwards; font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .reveal-btn {
+            background: var(--success); color: white; border: none; padding: 12px;
+            border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 15px;
+        }
+
+        .user-input {
+            width: 100%; height: 150px; background: #070b14; border: 1px solid var(--border);
+            color: white; padding: 15px; border-radius: 6px; font-family: inherit;
+            margin-top: 10px; resize: none; font-size: 1rem; transition: border-color 0.3s;
+        }
+
+        .user-input:focus { border-color: var(--accent); outline: none; }
+
+        .myp-box {
+            margin-top: 15px; padding: 12px; background: rgba(56, 189, 248, 0.1);
+            border: 1px dashed var(--accent); border-radius: 6px; color: var(--accent);
+            display: none; font-weight: 600; font-size: 0.85rem;
+        }
+
+        #summary-content {
+            background: var(--card-bg); padding: 2rem; border-radius: 8px;
+            white-space: pre-wrap; margin-top: 20px; text-align: left; max-height: 500px; overflow-y: auto; border: 1px solid var(--border);
+        }
+
+        .action-btn { padding: 12px 25px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; margin: 5px; }
+        .download-btn { background: var(--accent); color: var(--bg); }
+        .copy-btn { background: var(--secondary); color: var(--bg); }
+
+        h2 { margin: 0; color: var(--text); font-size: 1.5rem; }
+        h3 { font-size: 0.75rem; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; margin-top: 20px; }
+        .title-slide { justify-content: center; text-align: center; }
+        .section-label { color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+
+    <section class="title-slide">
+        <div class="container">
+            <span class="section-label">Creative Writing Lab by Mohsin@IBMC.pk</span>
+            <h1 style="font-size: 4rem; margin: 0;">Character & Setting</h1>
+            <p style="font-size: 1.2rem; margin-top: 20px;">Analyze full mentor texts, deconstruct the logic, and draft your creative style.</p>
+            <p style="font-size: 0.7rem; margin-top: 10px;">generated using gemini calculator</p>
+            
+            <p style="color: var(--muted); margin-top: 40px;">[ Scroll to navigate slides ]</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="header-meta"><span class="badge">Character Formula 1</span><h2>The Methodical Expert</h2></div>
+            <div class="formula-box"><strong>Formula Logic:</strong> Choose a specific tool. Describe 3+ micro-actions showing extreme care. State a professional "reasoning" (Expertise). End with the sensory result of the action.</div>
+            <div class="grid">
+                <div>
+                    <h3>Mentor Text</h3>
+                    <div class="mentor-text">
+                        "Baldini blew his nose carefully […] He pulled a fresh white lace handkerchief out of a desk drawer and unfolded it. Then, holding his head far back and pinching his nostrils together, he opened the flacon with a gentle turn of the stopper. He did not want, for God’s sake, to get a premature sensation directly from the bottle. Perfume must be smelled in its gaseous state, never as a concentrate. He sprinkled a few drops onto the handkerchief, waved it in the air to drive off the alcohol, and then held it to his nose."
+                    </div>
+                    <h3>Drafting Space</h3>
+                    <textarea class="user-input" data-label="C1: Methodical Expert" placeholder="Try describing a character's expertise through their slow, careful handling of an object..."></textarea>
+                </div>
+                <div class="practice-card" data-slide="c1">
+                    <button class="reveal-btn" onclick="revealPrompt('c1')">Reveal Step-by-Step Prompts</button>
+                    <div class="prompt-item">Write 3 sentences about someone cleaning a pair of glasses very slowly.</div>
+                    <div class="prompt-item">Write a paragraph about a character organizing colored pencils by shade.</div>
+                    <div class="prompt-item">Describe how a character carefully unwraps a fragile gift.</div>
+                    <div class="prompt-item">Show expertise in a craft (painting/carving) using precise verbs.</div>
+                    <div class="myp-box">MYP Level: Create a scene where methodical interaction leads to a moment of victory.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="header-meta"><span class="badge">Character Formula 2</span><h2>The Inconspicuous Observer</h2></div>
+            <div class="formula-box"><strong>Formula Logic:</strong> State a quiet living situation. List repetitive, narrow interests. Describe physical appearance using neutral, "matter-of-fact" language. End with a detail showing they are invisible to others.</div>
+            <div class="grid">
+                <div>
+                    <h3>Mentor Text</h3>
+                    <div class="mentor-text">
+                        "For several years, Mrs. H. T. Miller lived alone in a pleasant apartment (two rooms with kitchenette) in a remodeled brownstone near the East River. She was a widow: Mr. H. T. Miller had left a reasonable amount of insurance. Her interests were narrow, she had no friends to speak of, and she rarely journeyed farther than the corner grocery. The other people in the house never seemed to notice her: her clothes were matter-of-fact, her hair iron-gray, clipped and casually waved; she did not use cosmetics, her features were plain and inconspicuous, and on her last birthday she was sixty-one. Her activities were seldom spontaneous: she kept the two rooms immaculate, prepared her own meals and tended a canary."
+                    </div>
+                    <h3>Drafting Space</h3>
+                    <textarea class="user-input" data-label="C2: Inconspicuous Observer" placeholder="Describe a character who seems to disappear into the background..."></textarea>
+                </div>
+                <div class="practice-card" data-slide="c2">
+                    <button class="reveal-btn" onclick="revealPrompt('c2')">Reveal Step-by-Step Prompts</button>
+                    <div class="prompt-item">Character sitting in the same chair daily watching rain.</div>
+                    <div class="prompt-item">Describe a person whose clothes match the wall color.</div>
+                    <div class="prompt-item">List three repetitive, boring tasks they do every morning.</div>
+                    <div class="prompt-item">Describe the habit of never being noticed by neighbors.</div>
+                    <div class="myp-box">MYP Level: An inconspicuous character reflects on an important decision.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="header-meta"><span class="badge">Character Formula 3</span><h2>The Internal Rebel</h2></div>
+            <div class="formula-box"><strong>Formula Logic:</strong> Direct "I" statement of love for a hobby. Sensory verbs of process (tucking, folding). Assertive internal thought that rejects social rules or labels.</div>
+            <div class="grid">
+                <div>
+                    <h3>Mentor Text</h3>
+                    <div class="mentor-text">
+                        "I shrug. So I shouldn't like to weave because of who I am? That’s ridiculous. I like creating with my hands. There’s something rewarding about making art out of nothing. The tucking and untucking, the folding over and under. Repeating until a bright new thing winks back at me. I make tapestries with my own two hands. There isn’t anything better than creating something beautiful, especially if it hides a message that can save my people. Who gives a damn if I’m an Illustrian or not? The loom can’t tell the difference."
+                    </div>
+                    <h3>Drafting Space</h3>
+                    <textarea class="user-input" data-label="C3: Internal Rebel" placeholder="Contrast a character's quiet hobby with their fierce internal pride..."></textarea>
+                </div>
+                <div class="practice-card" data-slide="c3">
+                    <button class="reveal-btn" onclick="revealPrompt('c3')">Reveal Step-by-Step Prompts</button>
+                    <div class="prompt-item">"I love to run" + explanation of inner strength.</div>
+                    <div class="prompt-item">A hobby + a thought showing you don't care what others think.</div>
+                    <div class="prompt-item">Connect a creative task to a character's secret identity.</div>
+                    <div class="myp-box">MYP Level: Internal conviction about a craft leads to time travel.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="header-meta"><span class="badge">Setting Formula 1</span><h2>The Sensory Memory</h2></div>
+            <div class="formula-box"><strong>Formula Logic:</strong> Focus on one uncomfortable sensation (dust, cold). Describe its specific physical location (throat, toes). End with a comparison of memory to a specific art style.</div>
+            <div class="grid">
+                <div>
+                    <h3>Mentor Text</h3>
+                    <div class="mentor-text">
+                        "When I think of the hometown of my youth, all that I seem to remember is dust—the brown, crumbly dust of late summer—arid, sterile dust that gets into the eyes and makes them water, gets into the throat and between the toes of bare brown feet. I don’t know why I should remember only the dust. Surely there must have been lush green lawns and paved streets under leafy shade trees somewhere in town; but memory is an abstract painting—it does not present things as they are, but rather as they feel."
+                    </div>
+                    <h3>Drafting Space</h3>
+                    <textarea class="user-input" data-label="S1: Sensory Memory" placeholder="Write about a memory focusing only on one single, uncomfortable sensation..."></textarea>
+                </div>
+                <div class="practice-card" data-slide="s1">
+                    <button class="reveal-btn" onclick="revealPrompt('s1')">Reveal Step-by-Step Prompts</button>
+                    <div class="prompt-item">Write one sentence focusing only on a smell.</div>
+                    <div class="prompt-item">Feeling of hot metal on a playground on a summer day.</div>
+                    <div class="prompt-item">Describe a childhood room using one specific texture.</div>
+                    <div class="myp-box">MYP Level: Memory as an abstract painting leads to a shift in perspective.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="header-meta"><span class="badge">Setting Formula 5</span><h2>The Atmosphere of Decay</h2></div>
+            <div class="formula-box"><strong>Formula Logic:</strong> Identify a decaying structure. Describe parts "leaning" rather than nailed. Attribute "magical" qualities to its survival. Call it a "monument" to its state.</div>
+            <div class="grid">
+                <div>
+                    <h3>Mentor Text</h3>
+                    <div class="mentor-text">
+                        "Miss Lottie’s house was the most ramshackle of all our ramshackle homes. The sun and rain had long since faded its rickety frame siding from white to a sullen gray. The boards themselves seemed to remain upright not from being nailed together but rather from leaning together, like a house that a child might have constructed from cards. A brisk wind might have blown it down, and the fact that it was still standing implied a kind of enchantment that was stronger than the elements. There it stood—a gray, rotting thing with no porch, no shutters, no steps, set on a cramped lot with no grass, not even any weeds—a monument to decay."
+                    </div>
+                    <h3>Drafting Space</h3>
+                    <textarea class="user-input" data-label="S5: Atmosphere of Decay" placeholder="Describe a building falling apart in a way that seems magical or enchanted..."></textarea>
+                </div>
+                <div class="practice-card" data-slide="s5">
+                    <button class="reveal-btn" onclick="revealPrompt('s5')">Reveal Step-by-Step Prompts</button>
+                    <div class="prompt-item">Describe an old playground covered in rust and weeds.</div>
+                    <div class="prompt-item">Abandoned library with shelves "leaning together" like cards.</div>
+                    <div class="prompt-item">Use a simile for a decaying building (e.g. "constructed from cards").</div>
+                    <div class="myp-box">MYP Level: Decay representing a character's moment of victory.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="title-slide">
+        <div class="container">
+            <h2>Portfolio Summary</h2>
+            <p>Review your writing and download the file to share with your instructor.</p>
+            <button class="reveal-btn" style="width: auto; padding: 15px 40px;" onclick="generateSummary()">Generate Final Portfolio</button>
+            <div id="summary-content">Your drafted responses will appear here...</div>
+            <div style="margin-top: 30px;">
+                <button class="action-btn copy-btn" onclick="copyWork()">Copy to Clipboard</button>
+                <button class="action-btn download-btn" onclick="downloadWork()">Download as .txt</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function revealPrompt(slideId) {
+            const card = document.querySelector(`.practice-card[data-slide="${slideId}"]`);
+            const hiddenPrompts = card.querySelectorAll('.prompt-item:not([style*="display: block"])');
+            const mypBox = card.querySelector('.myp-box');
+            const btn = card.querySelector('.reveal-btn');
+
+            if (hiddenPrompts.length > 0) {
+                hiddenPrompts[0].style.display = 'block';
+                if (hiddenPrompts.length === 1) {
+                    mypBox.style.display = 'block';
+                    btn.innerText = "All Prompts Revealed";
+                    btn.disabled = true;
+                }
+            }
+        }
+
+        function generateSummary() {
+            const inputs = document.querySelectorAll('.user-input');
+            let summary = "WRITING FORMULAE PORTFOLIO\n==============================\n\n";
+            inputs.forEach(input => {
+                const label = input.getAttribute('data-label');
+                const val = input.value || "[No response recorded]";
+                summary += `FORMULA: ${label}\n------------------------------\n${val}\n\n`;
+            });
+            document.getElementById('summary-content').innerText = summary;
+        }
+
+        function copyWork() {
+            const content = document.getElementById('summary-content').innerText;
+            navigator.clipboard.writeText(content);
+            alert("Portfolio copied to clipboard!");
+        }
+
+        function downloadWork() {
+            const content = document.getElementById('summary-content').innerText;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Writing_Portfolio.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
